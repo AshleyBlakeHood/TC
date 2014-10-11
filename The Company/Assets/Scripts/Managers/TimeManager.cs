@@ -5,7 +5,7 @@ public class TimeManager : MonoBehaviour
 {
 	public GUIM_Time timeGUI;
 
-	public System.DateTime currentDT;
+	System.DateTime currentDT;
 	float startTime = 0;
 
 	// Use this for initialization
