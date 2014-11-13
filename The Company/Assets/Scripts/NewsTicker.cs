@@ -43,7 +43,7 @@ public class NewsTicker : MonoBehaviour
 			ticker.text = newsItems[item].headline;
 
 			if (!newsItems[item].repeat)
-				newsItems.RemoveAt (newsItems[item]);
+				newsItems.RemoveAt (item);
 		}
 	}
 
