@@ -11,8 +11,9 @@ public class RepManager : MonoBehaviour {
 	
 	public List<RepData> fullRepList = new List<RepData>();
 	
-	private string mapName, saveName;
+	private string mapName, saveName, weightingTableName;
 	protected GameManager gm;
+
 	
 	/*
 	
@@ -30,7 +31,6 @@ public class RepManager : MonoBehaviour {
 	
 	// Use this for initialization
 	void Start () {
-		mapName = "EarthContinents";
 		try
 		{
 			gm = GameObject.Find("GameManager").GetComponent<GameManager>();
@@ -39,24 +39,29 @@ public class RepManager : MonoBehaviour {
 		{
 			Debug.Log("No Game Manager");
 		}
-		InitRegionWeightingTable();
+        /*
 		//0.75 Expert, 0.66 Hard, 0.50 Medium, 0.33 Easy, 0.20 Noob
 		GetRegionWeightingsByDifficulty(0.20);
-		WriteRegionWeightingsToCSV("test");
+        WriteRegionWeightingsToCSV(weightingTableName);
 		//PopulateRepList();
-		regionWeightingTable = UpdateRegionWeightingTableFromCSV("test");
-		WriteRegionWeightingsToCSV("Reload and write test");
-		GetRegionWeightingBetween("Europe", "Russia");
+        regionWeightingTable = UpdateRegionWeightingTableFromCSV(weightingTableName);
+        WriteRegionWeightingsToCSV(weightingTableName);
+		GetRegionWeightingBetween("Europe", "Russia");*/
 	}
 	
 	// Update is called once per frame
 	void Update () {
 	}
+
+    public void InitRepSystem()
+    {
+        regionNames = GetRegionNames();
+        InitRegionWeightingTable();
+        PopulateRepList();
+    }
 	
 	void InitRegionWeightingTable()
 	{
-		//gets all the regions names from the CSV
-		regionNames = GetRegionNames();
 		//Populates the weighting table
 		regionWeightingTable = new string[regionNames.Count+2,regionNames.Count+2];
 		
@@ -77,7 +82,7 @@ public class RepManager : MonoBehaviour {
 		}
 	}
 	
-	void GetRandomRegionWeightings(double difficultyMod)
+	public void GetRandomRegionWeightings(double difficultyMod)
 	{	
 		//randomly generates weightings, difficulty mod is only used to make sure there aren't all negative or all positive
 		//Very rudimentary
@@ -110,9 +115,10 @@ public class RepManager : MonoBehaviour {
 				
 			}
 		}
+        WriteRegionWeightingsToCSV(weightingTableName);
 	}
 	
-	void GetRegionWeightingsByDifficulty(double difficultyMod)
+	public void GetRegionWeightingsByDifficulty(double difficultyMod)
 	{
 		//Uses the difficulty modifier as a percentage to get mostly negative or mostly positive numbers
 		//0.2 would be easy, 0.9 would be impossible, quick and dirty but it works
@@ -152,6 +158,7 @@ public class RepManager : MonoBehaviour {
 				}
 			}
 		}
+        WriteRegionWeightingsToCSV(weightingTableName);
 	}
 	
 	List<string> GetRegionNames()
@@ -214,30 +221,44 @@ public class RepManager : MonoBehaviour {
 	
 	string GetRegionWeightingBetween(string you, string them)
 	{
-	
 		//Gets the x and y positions of you and them and then gets the region weighting based upon that
-		string tempWeighting = "";
-		int x = 0, y=0; //x = you, y = them
-		
-		for(int i = 0; i < regionNames.Count+1; i++)
-		{
-			if(regionWeightingTable[0,i] == you)
-			{
-				y=i;
-			}
-		}
-		
-		for(int i = 0; i < regionNames.Count+1; i++)
-		{
-			if(regionWeightingTable[i,0] == them)
-			{
-				x=i;
-			}
-		}
-		
-		tempWeighting = regionWeightingTable[x,y];
-		return tempWeighting;
+        string tempWeighting = "";
+        int[] positions = GetWeightingXY(you, them);
+        tempWeighting = regionWeightingTable[positions[0], positions[1]];
+        return tempWeighting;
 	}
+
+    void SetRegionWeightingBetween(string you, string them, int amount)
+    {
+        //Gets the x and y positions of you and them and then gets the region weighting based upon that
+		string tempWeighting = "";
+        int[] positions = GetWeightingXY(you, them);
+		tempWeighting = regionWeightingTable[positions[0],positions[1]];
+        tempWeighting += amount;
+        regionWeightingTable[positions[0], positions[1]] = tempWeighting;
+        WriteRegionWeightingsToCSV(weightingTableName);
+    }
+
+    int[] GetWeightingXY(string you, string them)
+    {
+        int[] temp = new int[2];
+        for (int i = 0; i < regionNames.Count + 1; i++)
+        {
+            if (regionWeightingTable[i, 0] == them)
+            {
+                temp[0] = i;
+            }
+        }
+
+        for (int i = 0; i < regionNames.Count + 1; i++)
+        {
+            if (regionWeightingTable[0, i] == you)
+            {
+                temp[1] = i;
+            }
+        }
+        return temp;
+    }
 	
 	public void PopulateRepList()
 	{
@@ -279,13 +300,23 @@ public class RepManager : MonoBehaviour {
 		gm.removeRepObject(temp);
 	}
 	
-	public void addNewObjectToList(RepData newRep)
+	public void AddNewObjectToList(RepData newRep)
 	{
 		//Adds a new rep object to the list and then sends that object to the gm to be added to the players rep lists
 		Debug.Log(newRep.getName());
 		fullRepList.Add(newRep);
 		gm.addNewRepObject(newRep);
 	}
-	
-	  
+
+    public List<string> GetRegions()
+    {
+        return regionNames;
+    }
+
+    public void SetSaveNames(string save, string map)
+    {
+        saveName = save;
+        mapName = map;
+        weightingTableName = saveName + mapName + "WeightingTable"; 
+    }
 }

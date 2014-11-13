@@ -10,7 +10,7 @@ public class InitNewPSObject : MonoBehaviour {
 		RepData temp = new RepData();
 		temp.setName(name);
 		temp.setRep(rep);
-		GameObject.Find("RepManager").GetComponent<RepManager>().addNewObjectToList(temp);
+		GameObject.Find("RepManager").GetComponent<RepManager>().AddNewObjectToList(temp);
 	}
 	
 	// Update is called once per frame
