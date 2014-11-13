@@ -12,6 +12,10 @@ public class Agent : MonoBehaviour
 
 	Vector3 destination = Vector3.zero;
 
+	//Agent Usable?
+	bool inTraining = false;
+	bool inMission = false;
+
 	// Use this for initialization
 	void Start ()
 	{
@@ -48,5 +52,23 @@ public class Agent : MonoBehaviour
 
 		startTime = Time.time;
 		journeyLength = Vector3.Distance (startPos, destination);
+	}
+
+	public void SetAgentMissionStatus(bool iInMission)
+	{
+		inMission = iInMission;
+	}
+
+	public void SetAgentTrainingStatus(bool iInTraining)
+	{
+		inTraining = iInTraining;
+	}
+
+	public bool IsAgentUsable()
+	{
+		if (inMission || inTraining)
+			return false;
+		else
+			return true;
 	}
 }
