@@ -7,13 +7,21 @@ public class GameManager : MonoBehaviour {
 	List<RepData> repListComplete = new List<RepData>();
 	public List<PlayerData> allPlayers = new List<PlayerData>();
 	RepManager rm;
+    List<string> regionNames;
+    string saveName, mapName;
 	// Use this for initialization
 	void Start () {
+        saveName = "TEST";
+        mapName = "EarthContinents";
 		populatePlayerList();
 		try
 		{
 			rm = GameObject.Find("RepManager").GetComponent<RepManager>();
-			rm.PopulateRepList();
+            rm.SetSaveNames(saveName, mapName);
+            rm.InitRepSystem();
+            regionNames = rm.GetRegions();
+            rm.GetRegionWeightingsByDifficulty(0.5);
+
 		}
 		catch
 		{
