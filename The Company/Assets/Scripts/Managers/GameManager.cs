@@ -21,6 +21,7 @@ public class GameManager : MonoBehaviour {
             rm.InitRepSystem();
             regionNames = rm.GetRegions();
             rm.GetRegionWeightingsByDifficulty(0.5);
+
 		}
 		catch
 		{
