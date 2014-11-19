@@ -1,112 +1,78 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class OffShoreManager : MonoBehaviour 
-{
-    
-    bool runOnceInterest = false, runOnceBills = false;
-    double interestRate = 0.2, currentHeld = 0, billsAmount = 0;
+public class money_OffShore : MonoBehaviour {
+
+    int setUpCost = 10;
+    bool runOnce = false;
+    double interestRate = 0.2, currentHeld = 0;
 
     public double current { get { return currentHeld; } }
+    public double getSetUp { get { return setUpCost; } }
 
     TimeManager tm;
 
-    System.DateTime holdingTimeInterest, holdingTimeBills, theTimeBills, theTimeInterest;
+    System.DateTime holdingTime, theTime;
+
+    // write holder value to be taken out at the end of each month
 
 
 
-    public void investment(double payIn)
+    public void investment(double payIn, string equation)
     {
-        currentHeld = +payIn;
+        if (equation == "Add")
+        {
+            currentHeld =+ payIn;
+        }
+        else if (equation == "Subtract")
+        {
+            currentHeld =+ payIn;
+        }
     }
 
-    public void bills(double amount)
+    void timeAdd()
     {
-        billsAmount += amount;
-    }
-
-    void timeAddInterest()
-    {
-        theTimeInterest = theTimeInterest.AddHours(2); // Sets the interest add delay
-    }
-
-    void timeAddBills()
-    {
-        theTimeBills = theTimeBills.AddMonths(1);
+        theTime = theTime.AddHours(2); // Sets the interest add delay
     }
 
     void interest()
     {
-        if (runOnceInterest == false)
+        if (runOnce == false)
         {
-            theTimeInterest = tm.currentDT;
+            theTime = tm.currentDT; // sets time from Time manager
 
-            timeAddInterest();
+            timeAdd();
 
-            runOnceInterest = true;
+            runOnce = true; // So that this section isnt run again to reset time
         }
 
 
-        holdingTimeInterest = tm.currentDT;
+        holdingTime = tm.currentDT; // Updates holdingtime so that checks are the same always
 
-        if (holdingTimeInterest.CompareTo(theTimeInterest).ToString() == "1" || holdingTimeInterest.CompareTo(theTimeInterest).ToString() == "0")
+        if (holdingTime.CompareTo(theTime).ToString() == "1" || holdingTime.CompareTo(theTime).ToString() == "0")
         {
-            //Debug.Log("outputted");
+            timeAdd();
 
-            timeAddInterest();
-
-            currentHeld += currentHeld * interestRate;
+            currentHeld += currentHeld * interestRate; // Adds interest rate to account
         }
     }
 
-    void billReductor()
-    {
-        if (runOnceBills == false)
-        {
-            theTimeBills = tm.currentDT;
 
-            timeAddBills();
-
-            runOnceBills = true;
-        }
-
-        holdingTimeBills = tm.currentDT;
-
-        if (holdingTimeBills.CompareTo(theTimeBills).ToString() == "1" || holdingTimeBills.CompareTo(theTimeBills).ToString() == "0")
-        {
-            //Debug.Log("outputted");
-
-            timeAddBills();
-
-            currentHeld -= billsAmount;
-        }
-    }
-
-    // Use this for initialization
+	// Use this for initialization
     void Start()
     {
 
         tm = GameObject.Find("Time Manager").GetComponent<TimeManager>();
 
-        StartCoroutine(wait());
-
     }
 
-    // Update is called once per frame
-    void Update()
+
+	
+	// Update is called once per frame
+	void Update () 
     {
 
-    }
+        interest();
 
-    IEnumerator wait() // Runs methods every 10 seconds
-    {
-        while (true)
-        {
-            yield return new WaitForSeconds(10.0f);
-            //interest();
-            billReductor();
-            //Debug.Log("run");
-        }
-
-    }
+	}
 }
