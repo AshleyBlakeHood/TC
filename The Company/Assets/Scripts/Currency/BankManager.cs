@@ -3,55 +3,81 @@ using System.Collections;
 
 public class BankManager : MonoBehaviour {
 
-    bool runOnce = false;
-    double interestRate = 0.2, currentHeld = 0;
+    bool runOnceInterest = false, runOnceBills = false;
+    double interestRate = 0.2, currentHeld = 0, billsAmount = 0;
 
     public double current { get { return currentHeld; } }
 
     TimeManager tm;
 
-    System.DateTime holdingTime, theTime;
+    System.DateTime holdingTimeInterest, holdingTimeBills, theTimeBills, theTimeInterest;
 
 
 
-    public void investment(double payIn, string equation)
+    public void investment(double payIn)
     {
-        if (equation == "Add")
-        {
-            currentHeld = +payIn;
-        }
-        else if (equation == "Subtract")
-        {
-            currentHeld = +payIn;
-        }
+        currentHeld = +payIn;
     }
 
-    void timeAdd()
+    public void bills(double amount)
     {
-        theTime = theTime.AddHours(2); // Sets the interest add delay
+        billsAmount += amount;
+    }
+
+    void timeAddInterest()
+    {
+        theTimeInterest = theTimeInterest.AddHours(2); // Sets the interest add delay
+    }
+
+    void timeAddBills()
+    {
+        theTimeBills = theTimeBills.AddMonths(1);   
     }
 
     void interest()
     {
-        if (runOnce == false)
+        if (runOnceInterest == false)
         {
-            theTime = tm.currentDT;
+            theTimeInterest = tm.currentDT;
 
-            timeAdd();
+            timeAddInterest();
 
-            runOnce = true;
+            runOnceInterest = true;
         }
 
 
-        holdingTime = tm.currentDT;
+        holdingTimeInterest = tm.currentDT;
 
-        if (holdingTime.CompareTo(theTime).ToString() == "1" || holdingTime.CompareTo(theTime).ToString() == "0")
+        if (holdingTimeInterest.CompareTo(theTimeInterest).ToString() == "1" || holdingTimeInterest.CompareTo(theTimeInterest).ToString() == "0")
         {
-            Debug.Log("outputted");
+            //Debug.Log("outputted");
 
-            timeAdd();
+            timeAddInterest();
 
             currentHeld += currentHeld * interestRate;
+        }
+    }
+
+    void billReductor()
+    {
+        if (runOnceBills== false)
+        {
+            theTimeBills = tm.currentDT;
+
+            timeAddBills();
+
+            runOnceBills = true;
+        }
+
+        holdingTimeBills = tm.currentDT;
+
+        if (holdingTimeBills.CompareTo(theTimeBills).ToString() == "1" || holdingTimeBills.CompareTo(theTimeBills).ToString() == "0")
+        {
+            //Debug.Log("outputted");
+
+            timeAddBills();
+
+            currentHeld -= billsAmount;
         }
     }
 
@@ -59,13 +85,25 @@ public class BankManager : MonoBehaviour {
 	void Start () {
 
         tm = GameObject.Find("Time Manager").GetComponent<TimeManager>();
+        
+        StartCoroutine(wait());
 	
 	}
 	
 	// Update is called once per frame
 	void Update () {
 
-        interest();
-
 	}
+
+    IEnumerator wait() // Runs methods every 10 seconds
+    {
+        while (true)
+        {
+            yield return new WaitForSeconds(10.0f);
+            //interest();
+            billReductor(); 
+            //Debug.Log("run");
+        }
+
+    }
 }
