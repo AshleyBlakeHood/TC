@@ -7,6 +7,7 @@ public class GameManager : MonoBehaviour {
 	List<RepData> repListComplete = new List<RepData>();
 	public List<PlayerData> allPlayers = new List<PlayerData>();
 	RepManager rm;
+	MissionManager mm;
     List<string> regionNames;
     string saveName, mapName;
 	// Use this for initialization
@@ -21,11 +22,20 @@ public class GameManager : MonoBehaviour {
             rm.InitRepSystem();
             regionNames = rm.GetRegions();
             rm.GetRegionWeightingsByDifficulty(0.5);
+			mm.InitMissionCreator();
 
 		}
 		catch
 		{
 			Debug.Log("No Rep Manager");
+		}
+		try
+		{
+			mm.InitMissionCreator();
+		}
+		catch
+		{
+			Debug.Log("No Mission Creator");
 		}
 	}
 	
