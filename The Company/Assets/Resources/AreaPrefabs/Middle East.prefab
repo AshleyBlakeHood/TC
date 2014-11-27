@@ -133,6 +133,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   hqList: 
+  deadZone: 0
+  deadSprite: {fileID: 0}
+  fineSprite: {fileID: 0}
+  areaID: 0
 --- !u!212 &21200000
 SpriteRenderer:
   m_ObjectHideFlags: 1
@@ -152,7 +156,7 @@ SpriteRenderer:
   m_LightProbeAnchor: {fileID: 0}
   m_ScaleInLightmap: 1
   m_SortingLayerID: 0
-  m_SortingOrder: -1
+  m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: cf89edf5c3a66ea47aa5f1a101f16289, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
 --- !u!1001 &100100000
