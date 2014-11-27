@@ -188,12 +188,13 @@ public class MissionManager : MonoBehaviour {
 			{
 				//manipulate c.transform.position to place it randomly within the continent
 				//sprite renderer bounds to get size of the sprite
-				Ray ray = new Ray(c.transform.position, Mathf.Infinity);
+				Ray ray = new Ray(c.transform.position, Vector3.one);
 
-				Physics2D hit = Physics2D.GetRayIntersection (ray);
+				RaycastHit2D hit = Physics2D.GetRayIntersection (ray);
 
 				if (hit != null)
 				{
+
 					//Place mission
 					//Instantiate prefab at that location
 				}
