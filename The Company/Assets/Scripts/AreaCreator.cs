@@ -1,4 +1,4 @@
-﻿using UnityEngine;
+using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
 
@@ -7,13 +7,17 @@ public class AreaCreator : MonoBehaviour {
 	public Continent contIns;
 	public GameObject tempArea;
 	public GameObject areaPlacement;
+	public Sprite tempSprite;
 	private Vector3 areaPos = Vector3.zero;
+	public int areaID = 0;
 
 	public GameObject[] areas; 
+	public Sprite[] dzAreas; 
 	
 	// Use this for initialization
 	void Start () {
 		areas = Resources.LoadAll<GameObject>("AreaPrefabs");
+		dzAreas = Resources.LoadAll<Sprite>("DeadzonePrefabs");
 		ReadInAreas ();
 		foreach (var x in areas) {
 			Debug.Log ("Quack: " + x.gameObject.name);
@@ -56,6 +60,20 @@ public class AreaCreator : MonoBehaviour {
 		float zLoc = System.Convert.ToSingle (data [3]);
 		areaPos = new Vector3(xLoc, yLoc, zLoc);
 		areaPlacement = Instantiate (tempArea, areaPos, Quaternion.identity) as GameObject;
+		areaPlacement.GetComponent<Continent> ().areaID = areaID;
+		areaID++;
+
+
+		foreach (Sprite tempy in dzAreas) {
+			Debug.Log("Carrot: " + tempy.name);
+			Debug.Log("Turnip: " + areaPlacement.name);
+			if (tempy.name + "(Clone)" == areaPlacement.name)
+			{
+				Debug.Log("Ok");
+				tempSprite = tempy;
+			}
+		}
+		areaPlacement.GetComponent<Continent> ().deadSprite = tempSprite;
 		//INSERT MORE VALIDATION SOON
 	}
 

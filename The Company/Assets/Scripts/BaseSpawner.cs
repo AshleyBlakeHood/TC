@@ -65,7 +65,7 @@ public class BaseSpawner : MonoBehaviour {
 					RaycastHit2D checkCollison = Physics2D.Raycast(mouseToWorldPos2D,mouseToWorldPos2D);
 					if (checkCollison.collider.name == hit.collider.name)
 					{
-						if (hit.collider.name != "DeadZone(Clone)")
+						if (hit.collider.GetComponent<Continent>().deadZone == false)
 						{
 							Debug.Log("Hit object: " + hit.collider.gameObject.name);
 							Debug.Log ("Meow");
