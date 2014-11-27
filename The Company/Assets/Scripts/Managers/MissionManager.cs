@@ -179,6 +179,27 @@ public class MissionManager : MonoBehaviour {
 	{
         activeMissions.Remove(g);
 	}
+
+	public void PlaceMissionObject(Mission m)
+	{
+		foreach (Continent c in GameObject.FindObjectsOfType<Continent>())
+		{
+			if (c.areaID == m.data.continent) //Change this to what Pete adds!
+			{
+				//manipulate c.transform.position to place it randomly within the continent
+				//sprite renderer bounds to get size of the sprite
+				Ray ray = new Ray(c.transform.position, Mathf.Infinity);
+
+				Physics2D hit = Physics2D.GetRayIntersection (ray);
+
+				if (hit != null)
+				{
+					//Place mission
+					//Instantiate prefab at that location
+				}
+			}
+		}
+	}
 }
 public class MissionModel
 {
