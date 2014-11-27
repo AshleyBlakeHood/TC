@@ -86,11 +86,38 @@ public class LoanManager : MonoBehaviour {
             if (ls.Length < 6)
                 continue;
 
-            allLoans[i - 1] = new Loan(ls[loanName], double.Parse(ls[loanAmount]), double.Parse(ls[interestRate]), int.Parse(ls[weekLength]), (ls[accountAim]), float.Parse(ls[appearenceWeighting]));
+            allLoans[i - 1] = new Loan(ls[loanName], RandomPicker(ls[loanAmount]), RandomPicker(ls[interestRate]), RandomPickerInt(ls[weekLength]), ls[accountAim], float.Parse(ls[appearenceWeighting]));
 
             loanList.Add(allLoans[i - 1]);
 
         }
+    }
+
+    public float RandomPicker(string input)
+    {
+        float start, end;
+        int middle;
+
+        middle = input.IndexOf("-");
+
+        start = float.Parse(input.Substring(0, middle));
+
+        end = float.Parse(input.Substring(middle, input.Length - 1));
+
+        return (Random.Range(start, end));
+    }
+
+    public int RandomPickerInt(string input)
+    {
+        int start, end, middle;
+
+        middle = input.IndexOf("-");
+
+        start = int.Parse(input.Substring(0, middle));
+
+        end = int.Parse(input.Substring(middle, input.Length - 1));
+
+        return (Random.Range(start, end));
     }
 
     public bool BoolParse(string s)
@@ -158,11 +185,6 @@ public class LoanManager : MonoBehaviour {
         {
             activeLoans[loanCounter].paymentLeft = activeLoans[loanCounter].paymentLeft * activeLoans[loanCounter].interestRate; // Times the remaining payments of the loan by its interest rate every time the method is run
         }
-    }
-
-    void weeklyPayments()
-    {
-
     }
 
     public Loan[] removeEntry(Loan[] array, Loan entry)
@@ -276,8 +298,7 @@ public class LoanManager : MonoBehaviour {
         while (true)
         {
             yield return new WaitForSeconds(15.0f);
-            //interest();
-            //billReductor();
+            timeChecker();
             //Debug.Log("run");
         }
 
