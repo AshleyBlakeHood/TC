@@ -8,7 +8,7 @@ public class GameManager : MonoBehaviour {
 	public List<PlayerData> allPlayers = new List<PlayerData>();
 	RepManager rm;
 	MissionManager mm;
-    List<string> regionNames;
+    List<string> regionNames = new List<string>();
     string saveName, mapName;
 
 	// Use this for initialization
@@ -32,7 +32,9 @@ public class GameManager : MonoBehaviour {
 		}
 		try
 		{
+			Debug.Log("entered try");
             mm = GameObject.Find("MissionManager").GetComponent<MissionManager>();
+			Debug.Log ("kk");
 			mm.InitMissionCreator();
 		}
 		catch

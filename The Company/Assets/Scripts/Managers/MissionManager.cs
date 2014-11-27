@@ -8,26 +8,25 @@ public class MissionManager : MonoBehaviour {
 	public GameObject missionPrefab;
 	private TextAsset missionInfo;
 	private TextAsset missionWords;
-	private TextAsset locationData;
 	private TextAsset personTargetNames;
 	private TextAsset placeTargetNames;
 	private MissionModel[] data;
 	private Target[] pTargets;
 	private Target[] lTargets;
-	private string[] locations;
 	private MissionName[] missionNames;
 	//private List<string> locationdata;
 	public List<GameObject> activeMissions;
-
+	GameManager gm = new GameManager();
+	List<string> continents;
 	private int missionID = 0;
 	// Use this for initialization
 	void Start () {
         missionInfo = Resources.Load("Mission Info") as TextAsset;
 		missionWords = Resources.Load ("Mission Words") as TextAsset;
-		locationData = Resources.Load ("EarthContinents") as TextAsset;
 		personTargetNames = Resources.Load ("Person Targets") as TextAsset;
 		placeTargetNames = Resources.Load ("Place Targets") as TextAsset;
         activeMissions = new List<GameObject>();
+		continents = new List<string> ();
 		InitMissionCreator ();
 		//GameObject mission = new GameObject ("Mission");
 		//Mission mObject = mission.AddComponent<Mission> ();
@@ -43,11 +42,15 @@ public class MissionManager : MonoBehaviour {
 	}
 	public void InitMissionCreator()
 	{
+		gm = GameObject.Find ("GameManager").GetComponent<GameManager> ();
+		continents = gm.GetRegionNames ();
+		foreach (string c in continents) {
+						Debug.Log (c);
+				}
 		//Link to the GameManager
 		//locationdata = locations;
 		GetMissionInfo ();
 		GetMissionName ();
-		GetLocationData ();
 		GetPersonTargetName ();
 		GetPlaceTargetName ();
 
@@ -67,22 +70,6 @@ public class MissionManager : MonoBehaviour {
 			data[i] = new MissionModel(lineSplit[0], lineSplit[7], lineSplit[2], lineSplit[3], lineSplit[4], lineSplit[5], lineSplit[6], lineSplit[1]);
 		}
 
-	}
-	private void GetLocationData()
-	{
-		string[] lines = locationData.text.Trim ('\n').Split ('\n');
-		
-		locations = new string[lines.Length];
-		
-		for (int i = 0; i < lines.Length; i++)
-		{
-			string[] lineSplit = lines[i].Split (',');
-			
-			if (lineSplit.Length < 1)
-				continue;
-			
-			locations[i] = lineSplit[0];
-		}
 	}
 	private void GetMissionName()
 	{
@@ -152,7 +139,7 @@ public class MissionManager : MonoBehaviour {
 		int maxEquipment = int.Parse (data [row].maxEquipment);
 		int minAgents = int.Parse (data [row].minAgents);
 		int maxAgents = int.Parse (data [row].maxAgents);
-		string continent = locations[Random.Range (0,locations.Length)];
+		string continent = continents [Random.Range(0, continents.Count)];
 		string forename = pTargets [Random.Range (0, pTargets.Length)].forename;
 		string surname = pTargets [Random.Range (0, pTargets.Length)].surname;
 		string fTarget = lTargets [Random.Range (0, lTargets.Length)].forename;
@@ -190,9 +177,7 @@ public class MissionManager : MonoBehaviour {
 	}
 	public void RemoveActiveMission(GameObject g)
 	{
-
         activeMissions.Remove(g);
-		Debug.Log ("Get wrekt");
 	}
 }
 public class MissionModel
