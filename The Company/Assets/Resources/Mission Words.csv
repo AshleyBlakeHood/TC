@@ -1,3 +1,8 @@
-[KILL],Kill,Assassinate,Murder,Takeout,Top,Whack,Shiv
-meh,,,,,,,
-derp,,,,,,,
+[KILL],Kill,Assassinate,Murder,Takeout,Top,Whack
+[PROTECT],Protect,Guard,Safeguard,Secure,Defend,Watch over
+[RAID],Raid,Assault,Invade,Sweep,Shootup,Storm
+[RESCUE],Rescue,Recover,Extract,Liberate,Reclaim,Aid
+[STOP],Stop,Hinder,Prevent,Cease,Terminate,Conclude
+[DEFUSE],Defuse,Deactivate,Defuse,Deactivate,Defuse,Deactivate
+[INFILTRATE],Infiltrate,Penetrate,Access,Sneak,Access,Work
+[DESTROY],Destroy,Sabotage,Raze,Destroy,Sabotage,Raze

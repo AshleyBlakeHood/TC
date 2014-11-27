@@ -33,7 +33,7 @@ public class PlayerData : MonoBehaviour
 
 	public void AddAgent(AgentData a)
 	{
-		GameObject agent = Instantiate (ac.agentPrefab, Vector3.zero, Quaternion.identity) as GameObject;
+		GameObject agent = Instantiate (ac.agentPrefab, new Vector3(-0.08f, 3.06f, 0), Quaternion.identity) as GameObject;
 		agent.GetComponent<Agent> ().data = a;
 
 		agents.Add (agent.GetComponent<Agent>());
