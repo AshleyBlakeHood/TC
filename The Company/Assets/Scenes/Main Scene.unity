@@ -8493,7 +8493,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   HQObject: {fileID: 100000, guid: bf4d30e2af967b347b8c40c580616ea4, type: 2}
-  headData: {fileID: 0}
+  SHObject: {fileID: 100000, guid: dc3770ccfdf013940816397c7d51587b, type: 2}
+  houseData: {fileID: 0}
   cont: {fileID: 0}
 --- !u!1 &1221300406
 GameObject:

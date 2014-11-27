@@ -4,7 +4,8 @@ using System.Collections.Generic;
 
 public class BaseSpawner : MonoBehaviour {
 	public GameObject HQObject;
-	public HQData headData;
+	public GameObject SHObject;
+	public SafehouseData houseData;
 	public Continent cont;
 	//Create a dragging prefab too. Otherwwise when a HQ comes into existence as drag it will start doing things. From there we can do the placement checks too.
 	private GameObject draggingHQ;
@@ -21,7 +22,7 @@ public class BaseSpawner : MonoBehaviour {
 	private int baseNumber;
 	// Use this for initialization
 	void Start () {
-		headData = new HQData ();
+		houseData = new SafehouseData ();
 		headquarters = new List<GameObject>();
 		cont = new Continent ();
 		ownCollider = transform.root.gameObject.GetComponent<Collider> ();
@@ -30,11 +31,22 @@ public class BaseSpawner : MonoBehaviour {
 	// Update is called once per frame
 	void Update ()
 	{
+		if (Input.GetKeyDown (KeyCode.J))
+		{
+			if (dragging != true)
+			{
+				SetItem(SHObject);
+				dragging = true;
+			}
+		}
 		//Give things name not letters!
 		if (Input.GetKeyDown (KeyCode.H))
 		{
-			SetItem(HQObject);
-			dragging = true;
+			if (dragging != true)
+			{
+				SetItem(HQObject);
+				dragging = true;
+			}
 		}
 		if (dragging)
 		{
@@ -50,19 +62,23 @@ public class BaseSpawner : MonoBehaviour {
 				Debug.Log(layerMask);
 				RaycastHit2D hit = Physics2D.Raycast(mouseToWorldPos2D,mouseToWorldPos2D, 0, layerMask);
 				if (hit.collider != null) {
-					if (hit.collider.name != "DeadZone")
+					RaycastHit2D checkCollison = Physics2D.Raycast(mouseToWorldPos2D,mouseToWorldPos2D);
+					if (checkCollison.collider.name == hit.collider.name)
 					{
-						Debug.Log("Hit object: " + hit.collider.gameObject.name);
-						Debug.Log ("Meow");
-						dragging = false;
-						baseNumber++;
-						draggingHQ.GetComponent<HQData>().id = baseNumber;
-						hit.collider.gameObject.GetComponent<Continent>().addAreaHQ(baseNumber);
-						headquarters.Add (draggingHQ);
-						draggingHQ.collider2D.enabled = true;
-					}
-					else{
-						Debug.Log("DeadZone hit");
+						if (hit.collider.GetComponent<Continent>().deadZone == false)
+						{
+							Debug.Log("Hit object: " + hit.collider.gameObject.name);
+							Debug.Log ("Meow");
+							dragging = false;
+							baseNumber++;
+							draggingHQ.GetComponent<SafehouseData>().id = baseNumber;
+							hit.collider.gameObject.GetComponent<Continent>().addAreaHQ(baseNumber);
+							headquarters.Add (draggingHQ);
+							draggingHQ.collider2D.enabled = true;
+						}
+						else{
+							Debug.Log("DeadZone hit");
+						}
 					}
 				}
 				else
