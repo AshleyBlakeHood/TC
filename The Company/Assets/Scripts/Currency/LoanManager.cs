@@ -95,29 +95,14 @@ public class LoanManager : MonoBehaviour {
 
     public float RandomPicker(string input)
     {
-        float start, end;
-        int middle;
-
-        middle = input.IndexOf("-");
-
-        start = float.Parse(input.Substring(0, middle));
-
-        end = float.Parse(input.Substring(middle, input.Length - 1));
-
-        return (Random.Range(start, end));
+        return (Random.Range(float.Parse(input.Substring(0, input.IndexOf("-"))), 
+                             float.Parse(input.Substring(input.IndexOf("-"), input.Length - 1))));
     }
 
     public int RandomPickerInt(string input)
     {
-        int start, end, middle;
-
-        middle = input.IndexOf("-");
-
-        start = int.Parse(input.Substring(0, middle));
-
-        end = int.Parse(input.Substring(middle, input.Length - 1));
-
-        return (Random.Range(start, end));
+        return (Random.Range(int.Parse(input.Substring(0, input.IndexOf("-"))), 
+                             int.Parse(input.Substring(input.IndexOf("-"), input.Length - 1))));
     }
 
     public bool BoolParse(string s)
