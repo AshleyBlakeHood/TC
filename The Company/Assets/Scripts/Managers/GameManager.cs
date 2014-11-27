@@ -10,6 +10,7 @@ public class GameManager : MonoBehaviour {
 	MissionManager mm;
     List<string> regionNames;
     string saveName, mapName;
+
 	// Use this for initialization
 	void Start () {
         saveName = "TEST";
@@ -22,7 +23,7 @@ public class GameManager : MonoBehaviour {
             rm.InitRepSystem();
             regionNames = rm.GetRegions();
             rm.GetRegionWeightingsByDifficulty(0.5);
-			mm.InitMissionCreator();
+			//mm.InitMissionCreator();
 
 		}
 		catch
@@ -31,6 +32,7 @@ public class GameManager : MonoBehaviour {
 		}
 		try
 		{
+            mm = GameObject.Find("MissionManager").GetComponent<MissionManager>();
 			mm.InitMissionCreator();
 		}
 		catch
@@ -77,4 +79,9 @@ public class GameManager : MonoBehaviour {
 			p.repList.Remove(repObj);
 		}
 	}
+
+    public List<string> GetRegionNames()
+    {
+        return regionNames;
+    }
 }

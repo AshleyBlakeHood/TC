@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 
+[System.Serializable]
 public class MissionManager : MonoBehaviour {
 
 	public GameObject missionPrefab;
@@ -16,7 +17,7 @@ public class MissionManager : MonoBehaviour {
 	private string[] locations;
 	private MissionName[] missionNames;
 	//private List<string> locationdata;
-	//public static List<GameObject> activeMissions;
+	public List<GameObject> activeMissions;
 
 	private int missionID = 0;
 	// Use this for initialization
@@ -26,6 +27,7 @@ public class MissionManager : MonoBehaviour {
 		locationData = Resources.Load ("EarthContinents") as TextAsset;
 		personTargetNames = Resources.Load ("Person Targets") as TextAsset;
 		placeTargetNames = Resources.Load ("Place Targets") as TextAsset;
+        activeMissions = new List<GameObject>();
 		InitMissionCreator ();
 		//GameObject mission = new GameObject ("Mission");
 		//Mission mObject = mission.AddComponent<Mission> ();
@@ -184,12 +186,12 @@ public class MissionManager : MonoBehaviour {
 		Mission mObject = mission.AddComponent<Mission> ();
 		mObject.data = temp;
 		missionID++;
-		//activeMissions.Add (mission);
+		activeMissions.Add (mission);
 	}
-	public void RemoveActiveMission(int ID)
+	public void RemoveActiveMission(GameObject g)
 	{
 
-		//activeMissions.RemoveAt (0);
+        activeMissions.Remove(g);
 		Debug.Log ("Get wrekt");
 	}
 }

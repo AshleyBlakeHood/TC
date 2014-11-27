@@ -168,7 +168,7 @@ GameObject:
   - 4: {fileID: 1415926162}
   - 114: {fileID: 1415926161}
   m_Layer: 0
-  m_Name: GameObject
+  m_Name: MissionManager
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -186,6 +186,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   missionPrefab: {fileID: 100000, guid: b4288414905494d41aa25e26c87a8367, type: 2}
+  activeMissions: []
 --- !u!4 &1415926162
 Transform:
   m_ObjectHideFlags: 0

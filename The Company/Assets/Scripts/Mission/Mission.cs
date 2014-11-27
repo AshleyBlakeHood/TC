@@ -1,12 +1,13 @@
 ﻿using UnityEngine;
 using System.Collections;
 
+[System.Serializable]
 public class Mission : MonoBehaviour {
 	
 	public MissionData data;
 	private int time;
 	//MissionManager mm;
-	//MissionManager mm = new MissionManager();
+	MissionManager mm = new MissionManager();
 	// Use this for initialization
 	void Start () {
 		string type = "";
@@ -32,8 +33,9 @@ public class Mission : MonoBehaviour {
 		//mm.activeMissions.RemoveAt(data.missionID);
 		Debug.Log ("Got here");
 		//MissionManager.activeMissions.RemoveAt (data.missionID);
-		/*GameObject mm = GameObject.Find ("MissionManager");
-		MissionManager missionM = mm.GetComponent<MissionManager> ();
+		mm = GameObject.Find ("MissionManager").GetComponent<MissionManager>();
+        mm.RemoveActiveMission(gameObject);
+		/*MissionManager missionM = mm.GetComponent<MissionManager> ();
 		missionM.activeMissions.RemoveAt (data.missionID);*/
 		Debug.Log ("Mission Deleted");
 		Destroy(gameObject);
