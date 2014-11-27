@@ -12,7 +12,7 @@ public class Mission : MonoBehaviour {
 		string type = "";
 		type = data.type;
 		time = data.timeGiven;
-		time *= 100;
+		time *= 300;
 	}
 	
 	// Update is called once per frame

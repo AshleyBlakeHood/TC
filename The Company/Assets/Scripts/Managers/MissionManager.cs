@@ -9,8 +9,10 @@ public class MissionManager : MonoBehaviour {
 	private TextAsset missionWords;
 	private TextAsset locationData;
 	private TextAsset personTargetNames;
+	private TextAsset placeTargetNames;
 	private MissionModel[] data;
-	private PersonTarget[] pTargets;
+	private Target[] pTargets;
+	private Target[] lTargets;
 	private string[] locations;
 	private MissionName[] missionNames;
 	//private List<string> locationdata;
@@ -23,6 +25,7 @@ public class MissionManager : MonoBehaviour {
 		missionWords = Resources.Load ("Mission Words") as TextAsset;
 		locationData = Resources.Load ("EarthContinents") as TextAsset;
 		personTargetNames = Resources.Load ("Person Targets") as TextAsset;
+		placeTargetNames = Resources.Load ("Place Targets") as TextAsset;
 		InitMissionCreator ();
 		//GameObject mission = new GameObject ("Mission");
 		//Mission mObject = mission.AddComponent<Mission> ();
@@ -44,6 +47,7 @@ public class MissionManager : MonoBehaviour {
 		GetMissionName ();
 		GetLocationData ();
 		GetPersonTargetName ();
+		GetPlaceTargetName ();
 
 	}
 	private void GetMissionInfo()
@@ -64,7 +68,6 @@ public class MissionManager : MonoBehaviour {
 	}
 	private void GetLocationData()
 	{
-		//Manipulate locationdata[]
 		string[] lines = locationData.text.Trim ('\n').Split ('\n');
 		
 		locations = new string[lines.Length];
@@ -87,17 +90,13 @@ public class MissionManager : MonoBehaviour {
 		{
 			string[] lineSplit = lines[i].Split (',');
 
-			if(lineSplit[i] == null)
-			{
-				lineSplit[i] = "j";
-			}
 			missionNames[i] = new MissionName(lineSplit);
 		}
 	}
 	private void GetPersonTargetName()
 	{
 		string[] lines = personTargetNames.text.Trim ('\n').Split ('\n');
-		pTargets = new PersonTarget[lines.Length];
+		pTargets = new Target[lines.Length];
 		for (int i = 0; i < lines.Length; i++)
 		{
 			string[] lineSplit = lines[i].Split (',');
@@ -105,30 +104,33 @@ public class MissionManager : MonoBehaviour {
 			if (lineSplit.Length < 2)
 				continue;
 			
-			pTargets[i] = new PersonTarget(lineSplit[0],lineSplit[1]);
+			pTargets[i] = new Target(lineSplit[0],lineSplit[1]);
+		}
+	}
+	private void GetPlaceTargetName()
+	{
+		string[] lines = placeTargetNames.text.Trim ('\n').Split ('\n');
+		lTargets = new Target[lines.Length];
+		for (int i = 0; i < lines.Length; i++)
+		{
+			string[] lineSplit = lines[i].Split (',');
+			
+			if (lineSplit.Length < 2)
+				continue;
+			
+			lTargets[i] = new Target(lineSplit[0],lineSplit[1]);
 		}
 	}
 	private string MissionTitleCreator(int row)
 	{
-		string title = data [8].missionTitle;
+		string title = data [row].missionTitle;
 		for(int i = 0; i<missionNames.Length;i++)
 		{
 			if (missionNames [i].missionName [0] == title) 
 			{
 				int maxName = missionNames[i].missionName.Length;
-				Debug.Log ("YAY");
-				bool emptyName = true;
 				maxName = Random.Range(1,maxName);
 				title = missionNames[i].missionName[maxName];
-				/*while(emptyName = true)
-				{
-
-					Debug.Log (title);
-					if(title != null)
-					{
-						emptyName = false;
-					}
-				}*/
 			}
 		}
 		return title;
@@ -149,21 +151,35 @@ public class MissionManager : MonoBehaviour {
 		int minAgents = int.Parse (data [row].minAgents);
 		int maxAgents = int.Parse (data [row].maxAgents);
 		string continent = locations[Random.Range (0,locations.Length)];
-		string location = "Brussels";
 		string forename = pTargets [Random.Range (0, pTargets.Length)].forename;
 		string surname = pTargets [Random.Range (0, pTargets.Length)].surname;
+		string fTarget = lTargets [Random.Range (0, lTargets.Length)].forename;
+		string sTarget = lTargets [Random.Range (0, lTargets.Length)].surname;
+
 		if (row == 1 || row == 4 || row == 8) 
 		{
-			title = title + " " + forename + " " + surname + " in " + location;
+			title = title + " " + forename + " " + surname + " in " + continent;
 		}
-		if (row == 3 || row == 4 || row == 6 || row == 7 || row == 9 || row == 10)
+		if (row == 6 || row == 7 || row == 9 || row == 10)
 		{
-			//title = title + lTargets;
+			title = title + " " + fTarget +  " " + sTarget + " in " + continent;
+		}
+		if (row == 0 || row == 3) 
+		{
+			title = title + " " + forename + "'s " + "hideout in " + continent;
+		}
+		if (row == 2)
+		{
+			title = title + " the robbery of " + fTarget + " " + sTarget + " bank in " + continent;
+		}
+		if(row == 5)
+		{
+			title = title + " bomb in " + continent;
 		}
 		int agents = Random.Range (minAgents, maxAgents + 1);
 		int equipment = Random.Range (minEquipment, maxEquipment + 1);
 
-		MissionData temp = new MissionData (type, timeGiven, objectives, equipment, agents, continent, location, missionID, title);
+		MissionData temp = new MissionData (type, timeGiven, objectives, equipment, agents, continent, missionID, title);
 		GameObject mission = new GameObject ("Mission");
 		Mission mObject = mission.AddComponent<Mission> ();
 		mObject.data = temp;
@@ -208,11 +224,11 @@ public class MissionName
 		missionName = name;
 	}
 }
-public class PersonTarget
+public class Target
 {
 	public string forename;
 	public string surname;
-	public PersonTarget(string fName, string sName)
+	public Target(string fName, string sName)
 	{
 		forename = fName;
 		surname = sName;
