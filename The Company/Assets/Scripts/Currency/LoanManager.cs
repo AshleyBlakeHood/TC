@@ -93,12 +93,16 @@ public class LoanManager : MonoBehaviour {
         }
     }
 
+    // Splits inputted string to the higher and lower variables for the random number
+    // Returns the randomized number 
     public float RandomPicker(string input)
     {
         return (Random.Range(float.Parse(input.Substring(0, input.IndexOf("-"))), 
                              float.Parse(input.Substring(input.IndexOf("-"), input.Length - 1))));
     }
 
+    // Splits inputted string to the higher and lower variables for the random number
+    // Returns the randomized number 
     public int RandomPickerInt(string input)
     {
         return (Random.Range(int.Parse(input.Substring(0, input.IndexOf("-"))), 
@@ -154,6 +158,7 @@ public class LoanManager : MonoBehaviour {
 	
 	}
 
+
     void timeAddWeek()
     {
         theTimeWeek = theTimeWeek.AddHours(2); // Sets the interest add delay
@@ -196,10 +201,12 @@ public class LoanManager : MonoBehaviour {
         {
             theTimeWeek = tm.currentDT;
 
+            // Adds time interval to checking time
             timeAddWeek();
 
             theTimeMonth = tm.currentDT;
 
+            // Adds time interval to checking time
             timeAddMonth();
 
             runOnce = true;
@@ -208,71 +215,92 @@ public class LoanManager : MonoBehaviour {
 
         holdingTime = tm.currentDT;
 
+        // Checks if the current time is equal to the time interval or if it is more then
         if (holdingTime.CompareTo(theTimeWeek).ToString() == "1" || holdingTime.CompareTo(theTimeWeek).ToString() == "0") // Checks for weeks
         {
             //Debug.Log("outputted");
 
             for (int loanCounter = 0; loanCounter < activeLoans.Length; loanCounter++) // Rolls through all the active loans
             {
+                // Checks which account the loan is meant to subtract from
                 if (activeLoans[loanCounter].accountAim == "Cash")
                 {
+                    // Checks if the payment left is less then the weekly payment
                     if ((activeLoans[loanCounter].paymentLeft - activeLoans[loanCounter].weeklyPayments) < 0)
                     {
+                        // Subtracts the amount left in the payment left value
                         cm.bills(activeLoans[loanCounter].paymentLeft);
 
+                        // Removes the entry from the active loan array
                         activeLoans = removeEntry(activeLoans, activeLoans[loanCounter]);
                     }
                     else if ((activeLoans[loanCounter].paymentLeft - activeLoans[loanCounter].weeklyPayments) > 0)
                     {
+                        // Subtracts the amount of the weekly payment from the aimed account
                         cm.bills(activeLoans[loanCounter].weeklyPayments);
 
+                        // Subtracts the weekly payment from the payment left
                         activeLoans[loanCounter].paymentLeft = activeLoans[loanCounter].paymentLeft - activeLoans[loanCounter].weeklyPayments;
                     }
                 }
+                // Checks which account the loan is meant to subtract from
                 else if (activeLoans[loanCounter].accountAim == "Bank")
                 {
+                    // Checks if the payment left is less then the weekly payment
                     if ((activeLoans[loanCounter].paymentLeft - activeLoans[loanCounter].weeklyPayments) < 0)
                     {
+                        // Subtracts the amount left in the payment left value
                         bm.bills(activeLoans[loanCounter].paymentLeft);
 
+                        // Removes the entry from the active loan array
                         activeLoans = removeEntry(activeLoans, activeLoans[loanCounter]);
                     }
                     else if ((activeLoans[loanCounter].paymentLeft - activeLoans[loanCounter].weeklyPayments) > 0)
                     {
+                        // Subtracts the amount of the weekly payment from the aimed account
                         bm.bills(activeLoans[loanCounter].weeklyPayments);
 
+                        // Subtracts the weekly payment from the payment left
                         activeLoans[loanCounter].paymentLeft = activeLoans[loanCounter].paymentLeft - activeLoans[loanCounter].weeklyPayments;
                     }
                 }
+                // Checks which account the loan is meant to subtract from
                 else if (activeLoans[loanCounter].accountAim == "Offshore")
                 {
+                    // Checks if the payment left is less then the weekly payment
                     if ((activeLoans[loanCounter].paymentLeft - activeLoans[loanCounter].weeklyPayments) < 0)
                     {
+                        // Subtracts the amount left in the payment left value
                         osm.bills(activeLoans[loanCounter].paymentLeft);
 
+                        // Removes the entry from the active loan array
                         activeLoans = removeEntry(activeLoans, activeLoans[loanCounter]);
                     }
                     else if ((activeLoans[loanCounter].paymentLeft - activeLoans[loanCounter].weeklyPayments) > 0)
                     {
+                        // Subtracts the amount of the weekly payment from the aimed account
                         osm.bills(activeLoans[loanCounter].weeklyPayments);
 
+                        // Subtracts the weekly payment from the payment left
                         activeLoans[loanCounter].paymentLeft = activeLoans[loanCounter].paymentLeft - activeLoans[loanCounter].weeklyPayments;
                     }
                 }
             }
 
-            
 
+            // Adds time interval to checking time
             timeAddWeek();
 
         }
 
+        // Checks if the current time is equal to the time interval or if it is more then
         if (holdingTime.CompareTo(theTimeMonth).ToString() == "1" || holdingTime.CompareTo(theTimeMonth).ToString() == "0") // Checks for months
         {
             //Debug.Log("outputted");
 
             interestPayer();
 
+            // Adds time interval to checking time
             timeAddMonth();
 
         }

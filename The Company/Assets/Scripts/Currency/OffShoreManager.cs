@@ -14,45 +14,51 @@ public class OffShoreManager : MonoBehaviour
     System.DateTime holdingTimeInterest, holdingTimeBills, theTimeBills, theTimeInterest;
 
 
-
+    // Method for money to be passed to the players account
     public void investment(double payIn)
     {
         currentHeld = +payIn;
     }
 
+    // Method for taking money out of players account each month
     public void bills(double amount)
     {
         billsAmount += amount;
     }
 
+    // Sets the time interval for adding interest to the players account
     void timeAddInterest()
     {
         theTimeInterest = theTimeInterest.AddHours(2); // Sets the interest add delay
     }
 
+    // Sets the time interval for subtracting bills from the players account
     void timeAddBills()
     {
         theTimeBills = theTimeBills.AddMonths(1);
     }
 
+    // Checks if interest time interval has been passed
+    // Adds the interest to the account
     void interest()
     {
         if (runOnceInterest == false)
         {
             theTimeInterest = tm.currentDT;
 
+            // Adds time interval to checking time
             timeAddInterest();
 
             runOnceInterest = true;
         }
 
-
+        // Holds the current time in a variable so that it does not change while checking
         holdingTimeInterest = tm.currentDT;
 
+        // Checks if the current time is equal to the time interval or if it is more then
         if (holdingTimeInterest.CompareTo(theTimeInterest).ToString() == "1" || holdingTimeInterest.CompareTo(theTimeInterest).ToString() == "0")
         {
-            //Debug.Log("outputted");
-
+            // Adds time interval to checking time
             timeAddInterest();
 
             currentHeld += currentHeld * interestRate;
@@ -65,17 +71,19 @@ public class OffShoreManager : MonoBehaviour
         {
             theTimeBills = tm.currentDT;
 
+            // Adds time interval to checking time
             timeAddBills();
 
             runOnceBills = true;
         }
 
+        // Holds the current time in a variable so that it does not change while checking
         holdingTimeBills = tm.currentDT;
 
+        // Checks if the current time is equal to the time interval or if it is more then
         if (holdingTimeBills.CompareTo(theTimeBills).ToString() == "1" || holdingTimeBills.CompareTo(theTimeBills).ToString() == "0")
         {
-            //Debug.Log("outputted");
-
+            // Adds time interval to checking time
             timeAddBills();
 
             currentHeld -= billsAmount;
@@ -105,7 +113,6 @@ public class OffShoreManager : MonoBehaviour
             yield return new WaitForSeconds(10.0f);
             //interest();
             billReductor();
-            //Debug.Log("run");
         }
 
     }

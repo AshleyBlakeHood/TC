@@ -73,7 +73,7 @@ public class StockManager : MonoBehaviour {
 
     public int getOwnedStock(string stock)
     {
-
+        // Cycles through players stock list checking each against passed string
         foreach (Stock holder in personalList)
         {
             if (holder.stockName == stock)
@@ -89,8 +89,11 @@ public class StockManager : MonoBehaviour {
     void buyStocks(string stock, int amount)
     {
         Stock holder = null, holderPersonal = null;
-        int stockIndex;
+        int stockIndex = -1;
 
+        // Searches all stock list for passed stock name
+        // If found places stock in temp string to get price at that time
+        // Saves index of stock for later saving to all stock list
         for (int i = 0; i < allStock.Length; i++)
         {
             if (allStock[i].stockName == stock)
@@ -100,21 +103,27 @@ public class StockManager : MonoBehaviour {
             }
         }
 
+        // Makes sure the stock passed is real
         if (holder != null)
         {
-            if (holder.stockAmount > amount)
+            // Makes sure the stock asked for has enough stock to sell
+            if (allStock[stockIndex].stockAmount > amount)
             {
+                // Passes cost to bank manager to subtract from bank account
                 bm.bills(amount * holder.stockPrice);
 
                 bool found = false;
 
+                // Checks if player already owns stock of that name
+                // Either adding stock amount to players existing stock
+                // Or making a new item in list for the stock name
                 for (int i = 0; i < personalList.Count; i++)
                 {
                     if (stock == personalList[i].stockName)
                     {
                         personalList[i].stockAmount =+ amount;
 
-                        holder.stockAmount =- amount;
+                        allStock[stockIndex].stockAmount = -amount;
 
                         found = true;
                     }
@@ -126,7 +135,7 @@ public class StockManager : MonoBehaviour {
 
                     personalList.Add(holderPersonal);
 
-                    holder.stockAmount =- amount;
+                    allStock[stockIndex].stockAmount = -amount;
                 }
             }
         }
@@ -144,6 +153,9 @@ public class StockManager : MonoBehaviour {
         int stockIndex = -1, personalIndex = -1;
         bool found = false;
 
+        // Searches all stock list for passed stock name
+        // If found places stock in temp string to get price at that time
+        // Saves index of stock for later saving to all stock list
         for (int i = 0; i < allStock.Length; i++)
         {
             if (allStock[i].stockName == stock)
@@ -153,6 +165,7 @@ public class StockManager : MonoBehaviour {
             }
         }
 
+        // Checks to make sure player actually owns stock with the passed name
         for (int i = 0; i < personalList.Count; i++)
         {
             if (stock == personalList[i].stockName)
@@ -162,6 +175,7 @@ public class StockManager : MonoBehaviour {
             }
         }
 
+        // Subtracts stock from players list
         if (found == true)
         {
             personalList[personalIndex].stockAmount -= amount;
