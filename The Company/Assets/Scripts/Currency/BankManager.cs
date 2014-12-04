@@ -3,55 +3,89 @@ using System.Collections;
 
 public class BankManager : MonoBehaviour {
 
-    bool runOnce = false;
-    double interestRate = 0.2, currentHeld = 0;
+    bool runOnceInterest = false, runOnceBills = false;
+    double interestRate = 0.2, currentHeld = 0, billsAmount = 0;
 
     public double current { get { return currentHeld; } }
 
     TimeManager tm;
 
-    System.DateTime holdingTime, theTime;
+    System.DateTime holdingTimeInterest, holdingTimeBills, theTimeBills, theTimeInterest;
 
 
-
-    public void investment(double payIn, string equation)
+    // Method for money to be passed to the players account
+    public void investment(double payIn)
     {
-        if (equation == "Add")
-        {
-            currentHeld = +payIn;
-        }
-        else if (equation == "Subtract")
-        {
-            currentHeld = +payIn;
-        }
+        currentHeld = +payIn;
     }
 
-    void timeAdd()
+    // Method for taking money out of players account each month
+    public void bills(double amount)
     {
-        theTime = theTime.AddHours(2); // Sets the interest add delay
+        billsAmount += amount;
     }
 
+    // Sets the time interval for adding interest to the players account
+    void timeAddInterest()
+    {
+        theTimeInterest = theTimeInterest.AddHours(2); // Sets the interest add delay
+    }
+
+    // Sets the time interval for subtracting bills from the players account
+    void timeAddBills()
+    {
+        theTimeBills = theTimeBills.AddMonths(1);   
+    }
+
+    // Checks if interest time interval has been passed
+    // Adds the interest to the account
     void interest()
     {
-        if (runOnce == false)
+        if (runOnceInterest == false)
         {
-            theTime = tm.currentDT;
+            theTimeInterest = tm.currentDT;
 
-            timeAdd();
+            // Adds time interval to checking time
+            timeAddInterest();
 
-            runOnce = true;
+            runOnceInterest = true;
         }
 
+        // Holds the current time in a variable so that it does not change while checking
+        holdingTimeInterest = tm.currentDT;
 
-        holdingTime = tm.currentDT;
-
-        if (holdingTime.CompareTo(theTime).ToString() == "1" || holdingTime.CompareTo(theTime).ToString() == "0")
+        // Checks if the current time is equal to the time interval or if it is more then
+        if (holdingTimeInterest.CompareTo(theTimeInterest).ToString() == "1" || holdingTimeInterest.CompareTo(theTimeInterest).ToString() == "0")
         {
-            Debug.Log("outputted");
-
-            timeAdd();
+            // Adds time interval to checking time
+            timeAddInterest();
 
             currentHeld += currentHeld * interestRate;
+        }
+    }
+
+    void billReductor()
+    {
+        if (runOnceBills== false)
+        {
+            theTimeBills = tm.currentDT;
+
+            // Adds time interval to checking time
+            timeAddBills();
+
+            runOnceBills = true;
+        }
+
+        // Holds the current time in a variable so that it does not change while checking
+        holdingTimeBills = tm.currentDT;
+
+        // Checks if the current time is equal to the time interval or if it is more then
+        if (holdingTimeBills.CompareTo(theTimeBills).ToString() == "1" || holdingTimeBills.CompareTo(theTimeBills).ToString() == "0")
+        {
+            // Adds time interval to checking time
+            timeAddBills();
+
+            currentHeld -= billsAmount;
         }
     }
 
@@ -59,13 +93,24 @@ public class BankManager : MonoBehaviour {
 	void Start () {
 
         tm = GameObject.Find("Time Manager").GetComponent<TimeManager>();
+        
+        StartCoroutine(wait());
 	
 	}
 	
 	// Update is called once per frame
 	void Update () {
 
-        interest();
-
 	}
+
+    IEnumerator wait() // Runs methods every 10 seconds
+    {
+        while (true)
+        {
+            yield return new WaitForSeconds(10.0f);
+            //interest();
+            billReductor(); 
+        }
+
+    }
 }
