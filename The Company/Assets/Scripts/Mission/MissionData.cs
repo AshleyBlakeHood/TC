@@ -10,10 +10,9 @@ public class MissionData {
 	public int equipment = 6;
 	public int agents = 3;
 	public string continent = "Europe";
-	public int missionID = 44;
 	public string missionTitle = "[KILL]";
 
-	public MissionData(string typ, int time, int obj, int equip, int agt, string cont,int ID,string title)
+	public MissionData(string typ, int time, int obj, int equip, int agt, string cont,string title)
 	{
 		type = typ;
 		timeGiven = time;
@@ -21,7 +20,6 @@ public class MissionData {
 		equipment = equip;
 		agents = agt;
 		continent = cont;
-		missionID = ID;
 		missionTitle = title;
 	}
 }

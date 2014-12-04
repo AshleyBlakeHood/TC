@@ -18,7 +18,6 @@ public class MissionManager : MonoBehaviour {
 	public List<GameObject> activeMissions;
 	GameManager gm = new GameManager();
 	List<string> continents;
-	private int missionID = 0;
 	// Use this for initialization
 	void Start () {
         missionInfo = Resources.Load("Mission Info") as TextAsset;
@@ -168,11 +167,15 @@ public class MissionManager : MonoBehaviour {
 		int agents = Random.Range (minAgents, maxAgents + 1);
 		int equipment = Random.Range (minEquipment, maxEquipment + 1);
 
-		MissionData temp = new MissionData (type, timeGiven, objectives, equipment, agents, continent, missionID, title);
+		MissionData temp = new MissionData (type, timeGiven, objectives, equipment, agents, continent, title);
 		GameObject mission = new GameObject ("Mission");
+		//GameObject mmmm = (GameObject)Instantiate (Resources.Load ("Mission"));
+		//mmmm.Mission.data = temp;
 		Mission mObject = mission.AddComponent<Mission> ();
+		SpriteRenderer renderer = mission.AddComponent<SpriteRenderer> ();
+		renderer.sprite = Resources.Load<Sprite>("Sprites/Mission");
 		mObject.data = temp;
-		missionID++;
+		PlaceMissionObject (mObject);
 		activeMissions.Add (mission);
 	}
 	public void RemoveActiveMission(GameObject g)
@@ -194,7 +197,7 @@ public class MissionManager : MonoBehaviour {
 
 				if (hit != null)
 				{
-
+					m.transform.position = c.transform.position;
 					//Place mission
 					//Instantiate prefab at that location
 				}
