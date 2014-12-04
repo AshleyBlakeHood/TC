@@ -117,6 +117,7 @@ public class StockManager : MonoBehaviour {
                 // Checks if player already owns stock of that name
                 // Either adding stock amount to players existing stock
                 // Or making a new item in list for the stock name
+                // Sends stock amount to the severity calculator to decide how much to set the severity of the stock price increase
                 for (int i = 0; i < personalList.Count; i++)
                 {
                     if (stock == personalList[i].stockName)
@@ -124,6 +125,8 @@ public class StockManager : MonoBehaviour {
                         personalList[i].stockAmount =+ amount;
 
                         allStock[stockIndex].stockAmount = -amount;
+
+                        buySeverityCalculator(amount, stockIndex);
 
                         found = true;
                     }
@@ -136,6 +139,8 @@ public class StockManager : MonoBehaviour {
                     personalList.Add(holderPersonal);
 
                     allStock[stockIndex].stockAmount = -amount;
+
+                    buySeverityCalculator(amount, stockIndex);
                 }
             }
         }
@@ -176,11 +181,14 @@ public class StockManager : MonoBehaviour {
         }
 
         // Subtracts stock from players list
+        // Sends stock amount to the severity calculator to decide how much to set the severity of the stock price reduction
         if (found == true)
         {
             personalList[personalIndex].stockAmount -= amount;
 
             bm.investment(allStock[stockIndex].stockPrice * amount);
+
+            sellSeverityCalculator(amount, stockIndex);
         }
         else
         {
@@ -189,5 +197,110 @@ public class StockManager : MonoBehaviour {
 
     }
 
+    void buySeverityCalculator(int amount, int stockIndex)
+    {
+        // Decides from the passed amount what to set the severity of the stock price increase
 
+        if (amount <= 10)
+            increaseStockPrice(1, stockIndex);
+        if (amount >= 11 && amount <= 50)
+            increaseStockPrice(2, stockIndex);
+        if (amount >= 51 && amount <= 100)
+            increaseStockPrice(3, stockIndex);
+        if (amount >= 101 && amount <= 500)
+            increaseStockPrice(4, stockIndex);
+        if (amount >= 501)
+            increaseStockPrice(5, stockIndex);
+
+    }
+
+    void sellSeverityCalculator(int amount, int stockIndex)
+    {
+        // Decides from the passed amount what to set the severity of the stock price reduction
+
+        if (amount <= 10)
+            reduceStockPrice(1, stockIndex);
+        if (amount >= 11 && amount <= 50)
+            reduceStockPrice(2, stockIndex);
+        if (amount >= 51 && amount <= 100)
+            reduceStockPrice(3, stockIndex);
+        if (amount >= 101 && amount <= 500)
+            reduceStockPrice(4, stockIndex);
+        if (amount >= 501)
+            reduceStockPrice(5, stockIndex);
+
+    }
+
+    void reduceStockPrice(int severity, int stockIndex)
+    {
+        Stock holder = null;
+        double reduction = -1;
+
+        // Sets the holder the stock asked for
+        holder = allStock[stockIndex];
+
+        // Makes sure the stock passed is real
+        if (holder != null)
+        {
+            // Decides how much to take off the stock price in order of severity
+            switch (severity)
+            {
+                case 1:
+                    reduction = holder.stockPrice * 0.01;
+                    break;
+                case 2:
+                    reduction = holder.stockPrice * 0.05;
+                    break;
+                case 3:
+                    reduction = holder.stockPrice * 0.10;
+                    break;
+                case 4:
+                    reduction = holder.stockPrice * 0.15;
+                    break;
+                case 5:
+                    reduction = holder.stockPrice * 0.25;
+                    break;
+            }
+
+            // Removes the reduction amount from the main list
+            allStock[stockIndex].stockPrice = allStock[stockIndex].stockPrice - reduction;
+        }
+    }
+
+    void increaseStockPrice(int severity, int stockIndex)
+    {
+        Stock holder = null;
+        double addage = -1;
+
+        // Sets the holder the stock asked for
+        holder = allStock[stockIndex];
+
+        // Makes sure the stock passed is real
+        if (holder != null)
+        {
+            // Decides how much to add to the stock price in order of severity
+            switch (severity)
+            {
+                case 1:
+                    addage = holder.stockPrice * 0.01;
+                    break;
+                case 2:
+                    addage = holder.stockPrice * 0.05;
+                    break;
+                case 3:
+                    addage = holder.stockPrice * 0.10;
+                    break;
+                case 4:
+                    addage = holder.stockPrice * 0.15;
+                    break;
+                case 5:
+                    addage = holder.stockPrice * 0.25;
+                    break;
+            }
+
+            // Adds the amount to the all stock list
+            allStock[stockIndex].stockPrice = allStock[stockIndex].stockPrice + addage;
+        }
+    }
+    
 }
