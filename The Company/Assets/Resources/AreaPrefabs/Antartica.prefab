@@ -1,0 +1,174 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &100000
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 4
+  m_Component:
+  - 4: {fileID: 400000}
+  - 212: {fileID: 21200000}
+  - 114: {fileID: 11400000}
+  - 60: {fileID: 6000000}
+  m_Layer: 8
+  m_Name: Antartica
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &400000
+Transform:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 100000}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -.0299999993, y: -4.11999989, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 0
+--- !u!60 &6000000
+PolygonCollider2D:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 100000}
+  m_Enabled: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Poly:
+    m_Paths:
+    - - {x: 9.55527496, y: -.127142861}
+      - {x: 9.78999996, y: .107582413}
+      - {x: 9.78999996, y: .146703288}
+      - {x: 9.65307713, y: .205384612}
+      - {x: 9.3792305, y: .244505495}
+      - {x: 8.55769253, y: .38142857}
+      - {x: 8.34252739, y: .440109879}
+      - {x: 7.77527475, y: .479230762}
+      - {x: 7.48186827, y: .537912071}
+      - {x: 7.05153847, y: .518351614}
+      - {x: 6.93417597, y: .498791188}
+      - {x: 6.56252718, y: .537912071}
+      - {x: 6.05395603, y: .479230762}
+      - {x: 5.72142839, y: .635714293}
+      - {x: 5.68230772, y: .635714293}
+      - {x: 5.38890123, y: .59659338}
+      - {x: 5.1737361, y: .518351614}
+      - {x: 4.80208778, y: .518351614}
+      - {x: 4.48912096, y: .459670335}
+      - {x: 4.37175798, y: .420549452}
+      - {x: 4.25439548, y: .32274726}
+      - {x: 4.01967049, y: .400988996}
+      - {x: 3.60890102, y: .420549452}
+      - {x: 3.35461545, y: .420549452}
+      - {x: 3.23725271, y: .498791188}
+      - {x: 2.80692315, y: .479230762}
+      - {x: 2.25923085, y: .342307687}
+      - {x: 1.86802197, y: .342307687}
+      - {x: 1.69197798, y: .303186804}
+      - {x: 1.10516477, y: .303186804}
+      - {x: .81175822, y: .32274726}
+      - {x: .792197764, y: .264065921}
+      - {x: .361868113, y: .283626378}
+      - {x: -.0293406583, y: .264065921}
+      - {x: -.166263729, y: .244505495}
+      - {x: -.479230762, y: .224945053}
+      - {x: -.616153836, y: .205384612}
+      - {x: -1.06604397, y: .0880219787}
+      - {x: -1.33989012, y: -.00978021976}
+      - {x: -1.63329673, y: -.127142861}
+      - {x: -2.00494504, y: -.166263729}
+      - {x: -2.59175825, y: -.166263729}
+      - {x: -3.1981318, y: -.0489010997}
+      - {x: -3.23725271, y: .0293406583}
+      - {x: -3.27637362, y: .185824171}
+      - {x: -3.23725271, y: .283626378}
+      - {x: -3.29593396, y: .400988996}
+      - {x: -2.9829669, y: .577032983}
+      - {x: -3.02208781, y: .635714293}
+      - {x: -3.10032964, y: .655274689}
+      - {x: -3.13945055, y: .655274689}
+      - {x: -3.66758227, y: .518351614}
+      - {x: -3.88274717, y: .38142857}
+      - {x: -4.15659332, y: .32274726}
+      - {x: -4.27395582, y: .224945053}
+      - {x: -4.31307697, y: .185824171}
+      - {x: -4.29351664, y: .127142861}
+      - {x: -4.41087914, y: .127142861}
+      - {x: -4.60648346, y: .0684615374}
+      - {x: -5.09549427, y: .146703288}
+      - {x: -5.34978008, y: .185824171}
+      - {x: -5.56494474, y: .205384612}
+      - {x: -5.81923056, y: .107582413}
+      - {x: -5.79967022, y: .00978021976}
+      - {x: -6.21043968, y: .107582413}
+      - {x: -6.56252718, y: .0293406583}
+      - {x: -6.56252718, y: .0684615374}
+      - {x: -7.09065914, y: .0880219787}
+      - {x: -7.36450529, y: .0489010997}
+      - {x: -7.71659327, y: .0293406583}
+      - {x: -8.49901104, y: -.0880219787}
+      - {x: -8.53813171, y: -.146703288}
+      - {x: -8.8315382, y: -.146703288}
+      - {x: -9.10538483, y: -.185824171}
+      - {x: -9.84868145, y: -.205384612}
+      - {x: -9.86824131, y: -.185824171}
+      - {x: -10.0051651, y: -.185824171}
+      - {x: -10.0051651, y: -.889999986}
+      - {x: 10.0051651, y: -.889999986}
+      - {x: 10.0051651, y: -.185824171}
+      - {x: 9.96604347, y: -.166263729}
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 100000}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 92212ebfd88d866469b7874f4e1d627e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  hqList: 
+  deadZone: 0
+  deadSprite: {fileID: 0}
+  fineSprite: {fileID: 0}
+  areaID: 0
+--- !u!212 &21200000
+SpriteRenderer:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 100000}
+  m_Enabled: 1
+  m_CastShadows: 0
+  m_ReceiveShadows: 0
+  m_LightmapIndex: 255
+  m_LightmapTilingOffset: {x: 1, y: 1, z: 0, w: 0}
+  m_Materials:
+  - {fileID: 10754, guid: 0000000000000000e000000000000000, type: 0}
+  m_SubsetIndices: 
+  m_StaticBatchRoot: {fileID: 0}
+  m_UseLightProbes: 0
+  m_LightProbeAnchor: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_SortingLayerID: 0
+  m_SortingOrder: 0
+  m_Sprite: {fileID: 21300000, guid: b24d7dc4f57aa704ca8ce8ed16f25844, type: 3}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+--- !u!1001 &100100000
+Prefab:
+  m_ObjectHideFlags: 1
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications: []
+    m_RemovedComponents: []
+  m_ParentPrefab: {fileID: 0}
+  m_RootGameObject: {fileID: 100000}
+  m_IsPrefabParent: 1
+  m_IsExploded: 1
