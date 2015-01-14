@@ -7,7 +7,6 @@ public class GameManager : MonoBehaviour {
 	List<RepData> repListComplete = new List<RepData>();
 	public List<PlayerData> allPlayers = new List<PlayerData>();
 	RepManager rm;
-	MissionManager mm;
     List<string> regionNames = new List<string>();
     string saveName, mapName;
 
@@ -29,17 +28,6 @@ public class GameManager : MonoBehaviour {
 		catch
 		{
 			Debug.Log("No Rep Manager");
-		}
-		try
-		{
-			Debug.Log("entered try");
-            mm = GameObject.Find("MissionManager").GetComponent<MissionManager>();
-			Debug.Log ("kk");
-			mm.InitMissionCreator();
-		}
-		catch
-		{
-			Debug.Log("No Mission Creator");
 		}
 	}
 	
