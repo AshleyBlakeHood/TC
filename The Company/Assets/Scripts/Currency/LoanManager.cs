@@ -15,8 +15,6 @@ public class LoanManager : MonoBehaviour {
     bool runOnce = false;
 
     TimeManager tm;
-    OffShoreManager osm;
-    BankManager bm;
     CashManager cm;
 
     System.DateTime holdingTime, theTimeWeek, theTimeMonth;
@@ -26,8 +24,6 @@ public class LoanManager : MonoBehaviour {
         readInData();
 
         tm = GameObject.Find("Time Manager").GetComponent<TimeManager>();
-        osm = GameObject.Find("Off Shore Manager").GetComponent<OffShoreManager>();
-        bm = GameObject.Find("Bank Manager").GetComponent<BankManager>();
         cm = GameObject.Find("Cash Manager").GetComponent<CashManager>();
 
         StartCoroutine(wait());
@@ -48,7 +44,6 @@ public class LoanManager : MonoBehaviour {
         int loanAmount = -1;
         int interestRate = -1;
         int weekLength = -1;
-        int accountAim = -1;
         int appearenceWeighting = -1;
 
         //Scan through columns to find the respective indexs.
@@ -68,9 +63,6 @@ public class LoanManager : MonoBehaviour {
                 case "Length":
                     weekLength = i;
                     break;
-                case "Account Aim":
-                    accountAim = i;
-                    break;
                 case "Weighting":
                     appearenceWeighting = i;
                     break;
@@ -83,10 +75,10 @@ public class LoanManager : MonoBehaviour {
         {
             string[] ls = lines[i].Split(',');
 
-            if (ls.Length < 6)
+            if (ls.Length < 5)
                 continue;
 
-            allLoans[i - 1] = new Loan(ls[loanName], RandomPicker(ls[loanAmount]), RandomPicker(ls[interestRate]), RandomPickerInt(ls[weekLength]), ls[accountAim], float.Parse(ls[appearenceWeighting]));
+            allLoans[i - 1] = new Loan(ls[loanName], RandomPicker(ls[loanAmount]), RandomPicker(ls[interestRate]), RandomPickerInt(ls[weekLength]), float.Parse(ls[appearenceWeighting]));
 
             loanList.Add(allLoans[i - 1]);
 
@@ -222,68 +214,22 @@ public class LoanManager : MonoBehaviour {
 
             for (int loanCounter = 0; loanCounter < activeLoans.Length; loanCounter++) // Rolls through all the active loans
             {
-                // Checks which account the loan is meant to subtract from
-                if (activeLoans[loanCounter].accountAim == "Cash")
+                // Checks if the payment left is less then the weekly payment
+                if ((activeLoans[loanCounter].paymentLeft - activeLoans[loanCounter].weeklyPayments) < 0)
                 {
-                    // Checks if the payment left is less then the weekly payment
-                    if ((activeLoans[loanCounter].paymentLeft - activeLoans[loanCounter].weeklyPayments) < 0)
-                    {
-                        // Subtracts the amount left in the payment left value
-                        cm.bills(activeLoans[loanCounter].paymentLeft);
+                    // Subtracts the amount left in the payment left value
+                    cm.bills(activeLoans[loanCounter].paymentLeft);
 
-                        // Removes the entry from the active loan array
-                        activeLoans = removeEntry(activeLoans, activeLoans[loanCounter]);
-                    }
-                    else if ((activeLoans[loanCounter].paymentLeft - activeLoans[loanCounter].weeklyPayments) > 0)
-                    {
-                        // Subtracts the amount of the weekly payment from the aimed account
-                        cm.bills(activeLoans[loanCounter].weeklyPayments);
-
-                        // Subtracts the weekly payment from the payment left
-                        activeLoans[loanCounter].paymentLeft = activeLoans[loanCounter].paymentLeft - activeLoans[loanCounter].weeklyPayments;
-                    }
+                    // Removes the entry from the active loan array
+                    activeLoans = removeEntry(activeLoans, activeLoans[loanCounter]);
                 }
-                // Checks which account the loan is meant to subtract from
-                else if (activeLoans[loanCounter].accountAim == "Bank")
+                else if ((activeLoans[loanCounter].paymentLeft - activeLoans[loanCounter].weeklyPayments) > 0)
                 {
-                    // Checks if the payment left is less then the weekly payment
-                    if ((activeLoans[loanCounter].paymentLeft - activeLoans[loanCounter].weeklyPayments) < 0)
-                    {
-                        // Subtracts the amount left in the payment left value
-                        bm.bills(activeLoans[loanCounter].paymentLeft);
+                    // Subtracts the amount of the weekly payment from the aimed account
+                    cm.bills(activeLoans[loanCounter].weeklyPayments);
 
-                        // Removes the entry from the active loan array
-                        activeLoans = removeEntry(activeLoans, activeLoans[loanCounter]);
-                    }
-                    else if ((activeLoans[loanCounter].paymentLeft - activeLoans[loanCounter].weeklyPayments) > 0)
-                    {
-                        // Subtracts the amount of the weekly payment from the aimed account
-                        bm.bills(activeLoans[loanCounter].weeklyPayments);
-
-                        // Subtracts the weekly payment from the payment left
-                        activeLoans[loanCounter].paymentLeft = activeLoans[loanCounter].paymentLeft - activeLoans[loanCounter].weeklyPayments;
-                    }
-                }
-                // Checks which account the loan is meant to subtract from
-                else if (activeLoans[loanCounter].accountAim == "Offshore")
-                {
-                    // Checks if the payment left is less then the weekly payment
-                    if ((activeLoans[loanCounter].paymentLeft - activeLoans[loanCounter].weeklyPayments) < 0)
-                    {
-                        // Subtracts the amount left in the payment left value
-                        osm.bills(activeLoans[loanCounter].paymentLeft);
-
-                        // Removes the entry from the active loan array
-                        activeLoans = removeEntry(activeLoans, activeLoans[loanCounter]);
-                    }
-                    else if ((activeLoans[loanCounter].paymentLeft - activeLoans[loanCounter].weeklyPayments) > 0)
-                    {
-                        // Subtracts the amount of the weekly payment from the aimed account
-                        osm.bills(activeLoans[loanCounter].weeklyPayments);
-
-                        // Subtracts the weekly payment from the payment left
-                        activeLoans[loanCounter].paymentLeft = activeLoans[loanCounter].paymentLeft - activeLoans[loanCounter].weeklyPayments;
-                    }
+                    // Subtracts the weekly payment from the payment left
+                    activeLoans[loanCounter].paymentLeft = activeLoans[loanCounter].paymentLeft - activeLoans[loanCounter].weeklyPayments;
                 }
             }
 
