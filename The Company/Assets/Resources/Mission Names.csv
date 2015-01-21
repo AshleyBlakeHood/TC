@@ -1,0 +1,3 @@
+Attack,Defend,Rescue,Steal,Revenge,Recon,Assassination,Infiltration,Framing
+Attack the target.,Defend the target.,Rescue the target.,Steal the [STEALABLE ITEM].,Get revenge.,Conduct reconnaissance of [RECON TARGET].,Assassinate [PERSON TARGET].,Infiltrate the [INFILTRATION TARGET].,Frame [PERSON TARGET].
+Attack [PERSON TARGET].,Defend [PERSON TARGET].,Rescue [PERSON TARGET].,Obtain the [STEALABLE ITEM].,Get revenge on [PERSON TARGET].,Conduct reconnaissance of [PERSON TARGET].,Assassination.,Infiltrate the target.,Frame [PERSON TARGET].

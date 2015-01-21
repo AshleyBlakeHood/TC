@@ -14,11 +14,6 @@ public class BlackMarket : MonoBehaviour
 	// Use this for initialization
 	void Start ()
 	{
-		guns [0] = new Gun ("Rocket Laucnher", 12, 56, 175, 50, 2.23f, 4, 12, "Large", 250, 1, 46, false, 0, 60, "USA", 1, 2, null);
-		guns [1] = new Gun ("Fat Man", 12, 56, 175, 50, 2.23f, 4, 12, "Large", 250, 1, 46, false, 0, 60, "USA", 1, 2, null);
-		guns [2] = new Gun ("Poison Dart Pistol", 12, 56, 175, 50, 2.23f, 4, 12, "Small", 250, 1, 46, true, 0, 60, "USA", 1, 2, null);
-		guns [3] = new Gun ("C4", 12, 56, 175, 50, 2.23f, 4, 12, "Small", 250, 1, 46, true, 0, 60, "USA", 1, 2, null);
-
 		guiManager = GameObject.FindGameObjectWithTag ("GUI Manager").GetComponent<GUIManager>();
 		gunManager = GameObject.FindGameObjectWithTag ("Gun Manager").GetComponent<GunManager>();
 		player = GameObject.FindGameObjectWithTag ("Player").GetComponent<PlayerData> ();
@@ -37,19 +32,35 @@ public class BlackMarket : MonoBehaviour
 		//Needs reprogramming by changing ItemWeightHolder to a template class.
 		for (int gunsIndex = 0; gunsIndex < guns.Length; gunsIndex++)
 		{
-			ItemWeightHolder[] gunWeights = new ItemWeightHolder[gunManager.blackMarketGuns.Count];
+			ItemWeightHolder[] gunWeights = new ItemWeightHolder[gunManager.allGuns.Length];
 			
 			for (int i = 0; i < gunWeights.Length; i++)
 			{
-				gunWeights[i] = new ItemWeightHolder(gunManager.blackMarketGuns[i].name, gunManager.blackMarketGuns[i].rarity);
+                gunWeights[i] = new ItemWeightHolder(gunManager.allGuns[i].name, gunManager.allGuns[i].rarity);
 			}
 			
 			string selectedGun = SelectionEngine.GetItem (gunWeights);
-			
-			for (int i = 0; i < gunManager.blackMarketGuns.Count; i++)
+
+            for (int i = 0; i < gunManager.allGuns.Length; i++)
 			{
-				if (gunManager.blackMarketGuns[i].name == selectedGun)
-					guns[gunsIndex] = gunManager.blackMarketGuns[i];
+                if (gunManager.allGuns[i].name == selectedGun)
+				{
+					Gun gun = gunManager.allGuns[i];
+					guns[gunsIndex] = new Gun(gun.name, gun.damage, gun.accuracy, gun.range, gun.clipSize, gun.fireRate, gun.reloadTime, gun.weight, gun.size, gun.price, gun.fearFactor,
+					                          gun.noise, gun.concealable, gun.moraleBoost, gun.rarity, gun.regionOfOrigin, gun.age, gun.storageUnits);
+
+					guns[gunsIndex].accuracy += System.Convert.ToInt32 (guns[gunsIndex].accuracy * Random.Range (-(guns[gunsIndex].accuracy * 0.1f), guns[gunsIndex].accuracy * 0.1f));
+					guns[gunsIndex].clipSize += System.Convert.ToInt32 (guns[gunsIndex].clipSize * Random.Range (-(guns[gunsIndex].clipSize * 0.1f), guns[gunsIndex].clipSize * 0.1f));
+					guns[gunsIndex].damage += System.Convert.ToInt32 (guns[gunsIndex].damage * Random.Range (-(guns[gunsIndex].damage * 0.1f), guns[gunsIndex].damage * 0.1f));
+					guns[gunsIndex].fireRate += guns[gunsIndex].fireRate * Random.Range (-(guns[gunsIndex].fireRate * 0.1f), guns[gunsIndex].fireRate * 0.1f);
+					guns[gunsIndex].range += System.Convert.ToInt32 (guns[gunsIndex].range * Random.Range (-(guns[gunsIndex].range * 0.1f), guns[gunsIndex].range * 0.1f));
+					guns[gunsIndex].reloadTime += guns[gunsIndex].reloadTime * Random.Range (-(guns[gunsIndex].reloadTime * 0.1f), guns[gunsIndex].reloadTime * 0.1f);
+					guns[gunsIndex].weight += guns[gunsIndex].weight * Random.Range (-(guns[gunsIndex].weight * 0.1f), guns[gunsIndex].weight * 0.1f);
+
+					guns[gunsIndex].name += "+";
+
+					break;
+				}
 			}
 		}
 	}

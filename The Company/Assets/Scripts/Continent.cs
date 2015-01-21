@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 
+[System.Serializable]
 public class Continent : MonoBehaviour
 {
 	public List<int> hqList = new List<int>();
