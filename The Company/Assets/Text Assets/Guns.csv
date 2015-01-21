@@ -1,37 +1,13 @@
-Name,Damage,Accuracy,Range (m),Clip Size,Fire Rate (RPM),Reload Time,Weight (g),Size,Price,Fear Factor,Noise,Concealable,Morale Boost,Rarity,Region of Origin,Storage Units,Upgrade Number,Gun Market,Diplomatic Market,Black Market
-Beretta M9,12,60,50,15,700,1.9,952,S,400,1,6,T,1,70,Italy,1,1,T,F,F
-Beretta M9,12,60,50,15,730,1.9,1002,S,450,1,6,T,1,0,Italy,1,2,T,F,F
-Beretta M9,14,70,50,20,730,1.9,1012,S,500,1,1,T,1,0,Italy,1,3,T,F,F
-Heckler & Koch MP7,17,40,200,20,950,2.1,1900,M,650,2,5,F,2,60,Germany,2,1,T,F,F
-Heckler & Koch MP8,17,50,200,30,950,2.1,2000,M,750,2,5,F,2,0,Germany,2,2,T,F,F
-Heckler & Koch MP9,17,50,200,40,950,2.1,2000,M,900,2,2,F,2,0,Germany,2,3,T,F,F
-AK-47,20,56,350,30,100,3.1,4780,M,700,4,7,F,3,65,Soviet Union,3,1,T,F,F
-AK-47,20,56,350,30,100,3.1,5000,M,750,4,7,F,3,0,Soviet Union,3,2,T,F,F
-AK-47,20,60,350,30,100,3.1,5000,M,800,4,7,F,3,0,Soviet Union,3,3,T,F,F
-L96,50,80,800,5,5,4,6800,L,1100,5,8,F,3,30,United Kingdom,4,1,T,F,F
-L96,50,80,800,5,5,4,6800,L,1100,5,8,F,3,0,United Kingdom,4,2,T,F,F
-L96,50,85,800,10,5,4,6800,L,1100,5,8,F,3,0,United Kingdom,4,3,T,F,F
-M48 Machine Gun,40,40,800,100,710,8.7,11200,L,1400,7,9,F,5,20,USA,5,1,F,F,T
-M48 Machine Gun,40,40,800,100,710,8.7,11200,L,1400,7,9,F,5,0,USA,5,2,F,F,T
-M48 Machine Gun,40,40,800,100,710,8.7,11200,L,1400,7,9,F,5,0,USA,5,3,F,F,T
-RPG-7,100,70,200,1,1,11,7000,L,700,9,10,F,7,10,Soviet Union,4,1,F,F,T
-RPG-8,100,70,200,1,1,11,7000,L,700,9,10,F,7,0,Soviet Union,4,2,F,F,T
-RPG-9,100,70,200,1,1,11,7000,L,700,9,10,F,7,0,Soviet Union,4,3,F,F,T
-Type 87 Grenade Launcher,80,50,600,8,45,9,12000,L,800,9,9,F,6,10,China,3,1,F,F,T
-Type 87 Grenade Launcher,80,50,600,8,45,9,12000,L,800,9,9,F,6,0,China,3,2,F,F,T
-Type 87 Grenade Launcher,80,50,600,8,45,9,12000,L,800,9,9,F,6,0,China,3,3,F,F,T
-M2 Flamethrower,5,30,20,4000,15,20,30000,L,2000,10,7,F,6,10,USA,6,1,F,F,T
-M2 Flamethrower,5,30,20,4000,15,20,30000,L,2000,10,7,F,6,0,USA,6,2,F,F,T
-M2 Flamethrower,5,30,20,4000,15,20,30000,L,2000,10,7,F,6,0,USA,6,3,F,F,T
-Diplomatic Gun 1,10,50,130,5,1,2,300,M,200000,10,10,F,10,1,UK,3,1,F,T,F
-Diplomatic Gun 1,15,50,130,5,1,2,300,M,200000,10,10,F,10,0,UK,3,2,F,T,F
-Diplomatic Gun 1,20,50,130,5,1,2,300,M,200000,10,10,F,10,0,UK,3,3,F,T,F
-Diplomatic Gun 2,10,50,130,5,1,2,300,M,200000,10,10,F,10,1,UK,3,1,F,T,F
-Diplomatic Gun 2,15,50,130,5,1,2,300,M,200000,10,10,F,10,0,UK,3,2,F,T,F
-Diplomatic Gun 2,20,50,130,5,1,2,300,M,200000,10,10,F,10,0,UK,3,3,F,T,F
-Diplomatic Gun 3,10,50,130,5,1,2,300,M,200000,10,10,F,10,1,UK,3,1,F,T,F
-Diplomatic Gun 3,15,50,130,5,1,2,300,M,200000,10,10,F,10,0,UK,3,2,F,T,F
-Diplomatic Gun 3,20,50,130,5,1,2,300,M,200000,10,10,F,10,0,UK,3,3,F,T,F
-Diplomatic Gun 4,10,50,130,5,1,2,300,M,200000,10,10,F,10,1,UK,3,1,F,T,F
-Diplomatic Gun 4,15,50,130,5,1,2,300,M,200000,10,10,F,10,0,UK,3,2,F,T,F
-Diplomatic Gun 4,20,50,130,5,1,2,300,M,200000,10,10,F,10,0,UK,3,3,F,T,F
+Name,Damage,Accuracy,Range (m),Clip Size,Fire Rate (RPM),Reload Time,Weight (g),Size,Price,Fear Factor,Noise,Concealable,Morale Boost,Rarity,Region of Origin,Storage Units
+Bullpup Rifle,12,60,300,32,32,1.9,3610,M,2000,3,6,F,2,70,France,2
+Assault Rifle,14,60,800,30,30,1.6,3260,M,2000,3,6,F,2,70,United States,2
+Battle Rifle,10,65,500,20,20,1.7,4100,M,1800,2,5,F,2,70,Germany,2
+Pistol,12,60,50,15,15,1.9,952,S,400,1,6,T,1,70,Italy,1
+Revolver,13,50,50,6,6,2.5,1300,S,700,3,6,T,3,60,United States,1
+Submachine Gun,11,50,200,30,30,2.1,2500,S,1200,2,5,F,2,70,Germany,2
+Carbine Rifle,15,60,500,30,30,2.2,2880,M,2100,3,6,F,3,50,United States,2
+Shotgun,20,40,25,8,8,3.5,3200,M,2500,4,6,F,5,50,United States,2
+Sniper Rifle,30,90,2600,1,1,4,11000,M,4000,6,7,F,6,20,United States,3
+Machine Gun,25,40,1000,250,250,5,8550,M,4000,6,7,F,6,20,Germany,3
+Recoilless Rifle,40,50,2100,1,1,8,6700,L,10000,7,10,F,7,10,Sweden,3
+Grenade Launcher,35,50,400,1,1,6,2930,M,8000,6,9,F,6,10,United States,2
