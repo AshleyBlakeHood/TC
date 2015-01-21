@@ -8942,7 +8942,6 @@ MonoBehaviour:
   areaPlacement: {fileID: 0}
   tempSprite: {fileID: 0}
   areas: []
-  dzAreas: []
 --- !u!1001 &1518084835
 Prefab:
   m_ObjectHideFlags: 0
