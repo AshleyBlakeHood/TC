@@ -65,20 +65,14 @@ public class BaseSpawner : MonoBehaviour {
 					RaycastHit2D checkCollison = Physics2D.Raycast(mouseToWorldPos2D,mouseToWorldPos2D);
 					if (checkCollison.collider.name == hit.collider.name)
 					{
-						if (hit.collider.GetComponent<Continent>().deadZone == false)
-						{
-							Debug.Log("Hit object: " + hit.collider.gameObject.name);
-							Debug.Log ("Meow");
-							dragging = false;
-							baseNumber++;
-							draggingHQ.GetComponent<SafehouseData>().id = baseNumber;
-							hit.collider.gameObject.GetComponent<Continent>().addAreaHQ(baseNumber);
-							headquarters.Add (draggingHQ);
-							draggingHQ.collider2D.enabled = true;
-						}
-						else{
-							Debug.Log("DeadZone hit");
-						}
+						Debug.Log("Hit object: " + hit.collider.gameObject.name);
+						Debug.Log ("Meow");
+						dragging = false;
+						baseNumber++;
+						draggingHQ.GetComponent<SafehouseData>().id = baseNumber;
+						hit.collider.gameObject.GetComponent<Continent>().addAreaHQ(baseNumber);
+						headquarters.Add (draggingHQ);
+						draggingHQ.collider2D.enabled = true;
 					}
 				}
 				else

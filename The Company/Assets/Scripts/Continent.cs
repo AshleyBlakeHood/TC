@@ -5,8 +5,7 @@ using System.Collections.Generic;
 public class Continent : MonoBehaviour
 {
 	public List<int> hqList = new List<int>();
-	public bool deadZone = false;
-	public Sprite deadSprite;
+
 	public Sprite fineSprite;
 	public string areaID;
 
@@ -16,10 +15,7 @@ public class Continent : MonoBehaviour
 
 	void Update()
 	{
-		int test = Random.Range (0, 100);
-		if (test == 69) {
-			switchZoneMode();
-		}
+
 	}
 
 	public void addAreaHQ(int hq)
@@ -30,16 +26,6 @@ public class Continent : MonoBehaviour
 	public void loadDeadzone()
 	{
 
-	}
-	public void switchZoneMode()
-	{
-		deadZone = !deadZone;
-		if (deadZone == true) {
-			GetComponent<SpriteRenderer> ().sprite = deadSprite;
-		} 
-		else {
-			GetComponent<SpriteRenderer> ().sprite = fineSprite;
-		}
 	}
 
 }

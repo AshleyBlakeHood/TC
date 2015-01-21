@@ -11,12 +11,10 @@ public class AreaCreator : MonoBehaviour {
 	private Vector3 areaPos = Vector3.zero;
 
 	public GameObject[] areas; 
-	public Sprite[] dzAreas; 
 	
 	// Use this for initialization
 	void Start () {
 		areas = Resources.LoadAll<GameObject>("AreaPrefabs");
-		dzAreas = Resources.LoadAll<Sprite>("DeadzonePrefabs");
 		ReadInAreas ();
 		foreach (var x in areas) {
 			Debug.Log ("Quack: " + x.gameObject.name);
@@ -52,8 +50,7 @@ public class AreaCreator : MonoBehaviour {
 				tempArea = curArea.gameObject;
 			}
 		}
-
-		//Debug.Log(tempArea.name);
+		
 		float xLoc = System.Convert.ToSingle (data [1]);
 		float yLoc = System.Convert.ToSingle (data [2]);
 		float zLoc = System.Convert.ToSingle (data [3]);
@@ -61,36 +58,5 @@ public class AreaCreator : MonoBehaviour {
 		areaPlacement = Instantiate (tempArea, areaPos, Quaternion.identity) as GameObject;
 		areaPlacement.GetComponent<Continent> ().areaID = data[0];
 
-
-
-		foreach (Sprite tempy in dzAreas) {
-			Debug.Log("Carrot: " + tempy.name);
-			Debug.Log("Turnip: " + areaPlacement.name);
-			if (tempy.name + "(Clone)" == areaPlacement.name)
-			{
-				Debug.Log("Ok");
-				tempSprite = tempy;
-			}
-		}
-		areaPlacement.GetComponent<Continent> ().deadSprite = tempSprite;
-		//INSERT MORE VALIDATION SOON
 	}
-
-
-	//public void ReadInHairColours()
-	//{
-	//	string[] lines = hairColours.text.Trim ('\n').Split ('\n');
-	//	
-	//	hairs = new ItemWeightHolder[lines.Length];
-	//	
-	//	for (int i = 0; i < lines.Length; i++)
-	//	{
-	//		string[] lineSplit = lines[i].Split (',');
-	//		
-	//		if (lineSplit.Length < 2)
-	//			continue;
-	//		
-	//		hairs[i] = new ItemWeightHolder(lineSplit[0], float.Parse(lineSplit[1]));
-	//	}
-	//}
 }
