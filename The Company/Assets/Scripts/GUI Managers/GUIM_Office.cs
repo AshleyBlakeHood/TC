@@ -8,6 +8,8 @@ public class GUIM_Office : MonoBehaviour
 
     public GameObject agentCanvas;
 
+    public AgentData[] agents;
+
 	// Use this for initialization
 	void Start ()
     {
@@ -20,29 +22,85 @@ public class GUIM_Office : MonoBehaviour
 	    
 	}
 
-    public void ShowAgents()
+    public void ShowAgents(AgentData[] agents)
     {
-        agentCanvas.SetActive(true);
-        AgentCreator ac = GameObject.FindObjectOfType<AgentCreator>();
-        
+        this.agents = agents;
 
+        agentCanvas.SetActive(true);
         ScrollableList sl = agentCanvas.GetComponentInChildren<ScrollableList>();
 
         sl.ClearList();
-        sl.CreateList(5, 1);
+        sl.CreateList(agents.Length, 1);
 
-        for (int i = 0; i < 5; i++)
+        for (int i = 0; i < agents.Length; i++)
         {
-            AgentData data = ac.CreateNewAgent();
+            //Attributes
+            sl.elements[i].transform.FindChild("Text - NameField").GetComponent<Text>().text = agents[i].foreame + " " + agents[i].surname;
+            sl.elements[i].transform.FindChild("Text - CodenameField").GetComponent<Text>().text = agents[i].codename;
+            sl.elements[i].transform.FindChild("Text - Known AliasesField").GetComponent<Text>().text = string.Join(", ", agents[i].aliases);
+            sl.elements[i].transform.FindChild("Text - GenderField").GetComponent<Text>().text = agents[i].gender;
+            sl.elements[i].transform.FindChild("Text - DOBField").GetComponent<Text>().text = agents[i].dayOfBirth + "/" + agents[i].monthOfBirth + "/" + agents[i].yearOfBirth;
+            sl.elements[i].transform.FindChild("Text - HeightField").GetComponent<Text>().text = agents[i].height;
+            sl.elements[i].transform.FindChild("Text - EyesField").GetComponent<Text>().text = agents[i].eyes;
+            sl.elements[i].transform.FindChild("Text - HairField").GetComponent<Text>().text = agents[i].hair;
 
-            sl.elements[i].transform.FindChild("Text - NameField").GetComponent<Text>().text = data.foreame + " " + data.surname;
-            sl.elements[i].transform.FindChild("Text - CodenameField").GetComponent<Text>().text = data.codename;
-            sl.elements[i].transform.FindChild("Text - Known AliasesField").GetComponent<Text>().text = string.Join(", ", data.aliases);
-            sl.elements[i].transform.FindChild("Text - GenderField").GetComponent<Text>().text = data.gender;
-            sl.elements[i].transform.FindChild("Text - DOBField").GetComponent<Text>().text = data.dayOfBirth + "/" + data.monthOfBirth + "/" + data.yearOfBirth;
-            sl.elements[i].transform.FindChild("Text - HeightField").GetComponent<Text>().text = data.height;
-            sl.elements[i].transform.FindChild("Text - EyesField").GetComponent<Text>().text = data.eyes;
-            sl.elements[i].transform.FindChild("Text - HairField").GetComponent<Text>().text = data.hair;
+            //Primary Stats
+            sl.elements[i].transform.FindChild("Primary Stats").FindChild("Text - CharismaField").GetComponent<Text>().text = agents[i].stats.charisma.ToString();
+            sl.elements[i].transform.FindChild("Primary Stats").FindChild("Text - IntelligenceField").GetComponent<Text>().text = agents[i].stats.intelligence.ToString();
+            sl.elements[i].transform.FindChild("Primary Stats").FindChild("Text - AgilityField").GetComponent<Text>().text = agents[i].stats.agility.ToString();
+
+            //Skills
+            sl.elements[i].transform.FindChild("Skills").FindChild("Text - StealthField").GetComponent<Text>().text = agents[i].skills.stealth.ToString();
+            sl.elements[i].transform.FindChild("Skills").FindChild("Text - StealField").GetComponent<Text>().text = agents[i].skills.steal.ToString();
+            sl.elements[i].transform.FindChild("Skills").FindChild("Text - FirearmsField").GetComponent<Text>().text = agents[i].skills.firearms.ToString();
+            sl.elements[i].transform.FindChild("Skills").FindChild("Text - UnarmedField").GetComponent<Text>().text = agents[i].skills.unarmed.ToString();
+            sl.elements[i].transform.FindChild("Skills").FindChild("Text - First AidField").GetComponent<Text>().text = agents[i].skills.firstaid.ToString();
+            sl.elements[i].transform.FindChild("Skills").FindChild("Text - Lock PickField").GetComponent<Text>().text = agents[i].skills.lockpick.ToString();
+            sl.elements[i].transform.FindChild("Skills").FindChild("Text - HackingField").GetComponent<Text>().text = agents[i].skills.hacking.ToString();
+            sl.elements[i].transform.FindChild("Skills").FindChild("Text - PerceptionField").GetComponent<Text>().text = agents[i].skills.perception.ToString();
+            sl.elements[i].transform.FindChild("Skills").FindChild("Text - InvestigationField").GetComponent<Text>().text = agents[i].skills.investigation.ToString();
+            sl.elements[i].transform.FindChild("Skills").FindChild("Text - DeceptionField").GetComponent<Text>().text = agents[i].skills.deception.ToString();
+            sl.elements[i].transform.FindChild("Skills").FindChild("Text - PersuasionField").GetComponent<Text>().text = agents[i].skills.persuasion.ToString();
+        }
+    }
+
+    public void ShowAgents()
+    {
+        agentCanvas.SetActive(true);
+        ScrollableList sl = agentCanvas.GetComponentInChildren<ScrollableList>();
+
+        sl.ClearList();
+        sl.CreateList(agents.Length, 1);
+
+        for (int i = 0; i < agents.Length; i++)
+        {
+            //Attributes
+            sl.elements[i].transform.FindChild("Text - NameField").GetComponent<Text>().text = agents[i].foreame + " " + agents[i].surname;
+            sl.elements[i].transform.FindChild("Text - CodenameField").GetComponent<Text>().text = agents[i].codename;
+            sl.elements[i].transform.FindChild("Text - Known AliasesField").GetComponent<Text>().text = string.Join(", ", agents[i].aliases);
+            sl.elements[i].transform.FindChild("Text - GenderField").GetComponent<Text>().text = agents[i].gender;
+            sl.elements[i].transform.FindChild("Text - DOBField").GetComponent<Text>().text = agents[i].dayOfBirth + "/" + agents[i].monthOfBirth + "/" + agents[i].yearOfBirth;
+            sl.elements[i].transform.FindChild("Text - HeightField").GetComponent<Text>().text = agents[i].height;
+            sl.elements[i].transform.FindChild("Text - EyesField").GetComponent<Text>().text = agents[i].eyes;
+            sl.elements[i].transform.FindChild("Text - HairField").GetComponent<Text>().text = agents[i].hair;
+
+            //Primary Stats
+            sl.elements[i].transform.FindChild("Primary Stats").FindChild("Text - CharismaField").GetComponent<Text>().text = agents[i].stats.charisma.ToString();
+            sl.elements[i].transform.FindChild("Primary Stats").FindChild("Text - IntelligenceField").GetComponent<Text>().text = agents[i].stats.intelligence.ToString();
+            sl.elements[i].transform.FindChild("Primary Stats").FindChild("Text - AgilityField").GetComponent<Text>().text = agents[i].stats.agility.ToString();
+
+            //Skills
+            sl.elements[i].transform.FindChild("Skills").FindChild("Text - StealthField").GetComponent<Text>().text = agents[i].skills.stealth.ToString();
+            sl.elements[i].transform.FindChild("Skills").FindChild("Text - StealField").GetComponent<Text>().text = agents[i].skills.steal.ToString();
+            sl.elements[i].transform.FindChild("Skills").FindChild("Text - FirearmsField").GetComponent<Text>().text = agents[i].skills.firearms.ToString();
+            sl.elements[i].transform.FindChild("Skills").FindChild("Text - UnarmedField").GetComponent<Text>().text = agents[i].skills.unarmed.ToString();
+            sl.elements[i].transform.FindChild("Skills").FindChild("Text - First AidField").GetComponent<Text>().text = agents[i].skills.firstaid.ToString();
+            sl.elements[i].transform.FindChild("Skills").FindChild("Text - Lock PickField").GetComponent<Text>().text = agents[i].skills.lockpick.ToString();
+            sl.elements[i].transform.FindChild("Skills").FindChild("Text - HackingField").GetComponent<Text>().text = agents[i].skills.hacking.ToString();
+            sl.elements[i].transform.FindChild("Skills").FindChild("Text - PerceptionField").GetComponent<Text>().text = agents[i].skills.perception.ToString();
+            sl.elements[i].transform.FindChild("Skills").FindChild("Text - InvestigationField").GetComponent<Text>().text = agents[i].skills.investigation.ToString();
+            sl.elements[i].transform.FindChild("Skills").FindChild("Text - DeceptionField").GetComponent<Text>().text = agents[i].skills.deception.ToString();
+            sl.elements[i].transform.FindChild("Skills").FindChild("Text - PersuasionField").GetComponent<Text>().text = agents[i].skills.persuasion.ToString();
         }
     }
 }
