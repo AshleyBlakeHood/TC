@@ -45,30 +45,6 @@ public class GameManager : MonoBehaviour {
 		}
 		
 	}
-	
-	public void populatePlayerRepLists(List<RepData> fullList)
-	{
-		foreach(PlayerData p in allPlayers)
-		{
-			p.repList = fullList;
-		}
-	}
-	
-	public void addNewRepObject(RepData newRep)
-	{
-		foreach(PlayerData p in allPlayers)
-		{
-			p.repList.Add(newRep);
-		}
-	}
-	
-	public void removeRepObject(RepData repObj)
-	{
-		foreach(PlayerData p in allPlayers)
-		{
-			p.repList.Remove(repObj);
-		}
-	}
 
     public List<string> GetRegionNames()
     {

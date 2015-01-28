@@ -130,14 +130,13 @@ GameObject:
   - 223: {fileID: 22340198}
   - 114: {fileID: 11440214}
   - 114: {fileID: 11440212}
-  - 114: {fileID: 11481456}
   m_Layer: 5
   m_Name: Canvas - Mission Screen
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!1 &181456
 GameObject:
   m_ObjectHideFlags: 1
@@ -387,17 +386,6 @@ MonoBehaviour:
   m_FallbackScreenDPI: 96
   m_DefaultSpriteDPI: 96
   m_DynamicPixelsPerUnit: 1
---- !u!114 &11481456
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 140212}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ecc4bf6efa16bc74d9ca7bbc5cce5a20, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &11481458
 MonoBehaviour:
   m_ObjectHideFlags: 1

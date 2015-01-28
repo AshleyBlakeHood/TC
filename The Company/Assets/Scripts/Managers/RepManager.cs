@@ -283,8 +283,6 @@ public class RepManager : MonoBehaviour {
 		bmRep.setRep(0);
 		bmRep.setName("Black Market");
 		fullRepList.Add(bmRep);
-
-		gm.populatePlayerRepLists(fullRepList);
 	}
 	
 	public void RemoveRepObjectByName(string name)
@@ -297,7 +295,6 @@ public class RepManager : MonoBehaviour {
 			temp = r;
 		}
 		fullRepList.Remove(temp);
-		gm.removeRepObject(temp);
 	}
 	
 	public void AddNewObjectToList(RepData newRep)
@@ -305,7 +302,6 @@ public class RepManager : MonoBehaviour {
 		//Adds a new rep object to the list and then sends that object to the gm to be added to the players rep lists
 		Debug.Log(newRep.getName());
 		fullRepList.Add(newRep);
-		gm.addNewRepObject(newRep);
 	}
 
     public List<string> GetRegions()

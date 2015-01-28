@@ -21,7 +21,7 @@ public class GUIM_Mission : MonoBehaviour
 	// Update is called once per frame
 	void Update ()
     {
-        if (guiManager.missionViewGUI.activeInHierarchy)
+		if (guiManager.missionViewGUI.activeInHierarchy && missionObject != null)
         {
             TimeSpan timeSpan = TimeSpan.FromSeconds((missionObject.missionEndTime - timeManager.currentDT).TotalSeconds);
 

@@ -18,12 +18,24 @@ public class MissionCreator : MonoBehaviour
 
     public float timeToNextSpawnMission = 0;
 
+    GameObject missionObjectHolder;
+
 	// Use this for initialization
 	void Start ()
     {
 		//Find objects in scene.
         gameManager = GameObject.FindObjectOfType<GameManager>();
         areaCreator = GameObject.FindObjectOfType<AreaCreator>();
+
+        GameObject dynamicObjectHolder;
+
+        if (GameObject.Find("Dynamic Object Holder") != null)
+            dynamicObjectHolder = GameObject.Find("Dynamic Object Holder");
+        else
+            dynamicObjectHolder = new GameObject("Dynamic Object Holder");
+
+        missionObjectHolder = new GameObject("Mission Object Holder");
+        missionObjectHolder.transform.parent = dynamicObjectHolder.transform;
 
 		//Load in the mission weightings.
 	    string missionWeightingsCSV = (Resources.Load("Mission Weightings") as TextAsset).ToString();
@@ -136,6 +148,7 @@ public class MissionCreator : MonoBehaviour
                     GameObject g = Instantiate(missionObject, new Vector3(continentPos.x + x, continentPos.y + y, -0.01f), Quaternion.identity) as GameObject;
 					g.name = "Mission: " + missionData.missionName;
 					g.AddComponent<MissionObject>().missionData = missionData;
+                    g.transform.parent = missionObjectHolder.transform;
 				}
 			}
 
