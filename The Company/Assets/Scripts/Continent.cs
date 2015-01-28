@@ -2,45 +2,27 @@
 using System.Collections;
 using System.Collections.Generic;
 
+<<<<<<< HEAD
 [System.Serializable]
+=======
+
+/// <summary>
+/// The Continent class holds the headquarters located on the continent
+/// </summary>
+>>>>>>> origin/Petes-Twig
 public class Continent : MonoBehaviour
 {
+	//Attributes
 	public List<int> hqList = new List<int>();
-	public bool deadZone = false;
-	public Sprite deadSprite;
-	public Sprite fineSprite;
+	//The areaID gives the continent an id. This is used in retrieving the correct continent
 	public string areaID;
 
-	void Start () {
-		fineSprite = GetComponent<SpriteRenderer>().sprite;
-	}
-
-	void Update()
-	{
-		int test = Random.Range (0, 100);
-		if (test == 69) {
-			switchZoneMode();
-		}
-	}
-
+	/// <summary>
+	/// Adds the ID of the headquarters to the continent class's list of headquarters. This is useful in tracking where the headquarters are located
+	/// </summary>
+	/// <param name="hq">Hq.</param>
 	public void addAreaHQ(int hq)
 	{
 		hqList.Add (hq);
 	}
-
-	public void loadDeadzone()
-	{
-
-	}
-	public void switchZoneMode()
-	{
-		deadZone = !deadZone;
-		if (deadZone == true) {
-			GetComponent<SpriteRenderer> ().sprite = deadSprite;
-		} 
-		else {
-			GetComponent<SpriteRenderer> ().sprite = fineSprite;
-		}
-	}
-
 }
