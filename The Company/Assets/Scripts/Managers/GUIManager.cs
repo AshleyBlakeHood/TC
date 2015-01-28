@@ -7,6 +7,7 @@ public class GUIManager : MonoBehaviour
 	public GameObject blackMarketGUI;
 	public GameObject dipMarketGUI;
     public GameObject officeViewGUI;
+    public GameObject missionViewGUI;
 
     // Use this for initialization
 	void Start () {

@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
 
 public class MissionCreator : MonoBehaviour
 {
@@ -10,6 +11,12 @@ public class MissionCreator : MonoBehaviour
 	VeCSV missionNames;
 
 	public GameObject missionObject;
+
+    public List<MissionObject> spawnedMissions = new List<MissionObject>();
+
+    public int maxAvailableMissions = 10;
+
+    public float timeToNextSpawnMission = 0;
 
 	// Use this for initialization
 	void Start ()
@@ -30,7 +37,19 @@ public class MissionCreator : MonoBehaviour
 	// Update is called once per frame
 	void Update ()
     {
-	    
+        if (spawnedMissions.Count < maxAvailableMissions)
+        {
+            PlaceMissionInWorld(CreateMission());
+
+            timeToNextSpawnMission = Random.Range(Time.time * 5, Time.time * 10);
+        }
+
+        if (Time.time > timeToNextSpawnMission)
+        {
+            PlaceMissionInWorld(CreateMission());
+
+            timeToNextSpawnMission = Random.Range(Time.time * 5, Time.time * 10);
+        }
 	}
 
 	public MissionData CreateMission()
@@ -114,7 +133,7 @@ public class MissionCreator : MonoBehaviour
 				if (continentHit.collider.name.Replace ("(Clone)", "") == missionData.location.name)
 				{
 					hitContinent = true;
-					GameObject g = Instantiate (missionObject, new Vector3(continentPos.x + x, continentPos.y + y, 0), Quaternion.identity) as GameObject;
+                    GameObject g = Instantiate(missionObject, new Vector3(continentPos.x + x, continentPos.y + y, -0.01f), Quaternion.identity) as GameObject;
 					g.name = "Mission: " + missionData.missionName;
 					g.AddComponent<MissionObject>().missionData = missionData;
 				}
@@ -133,7 +152,7 @@ public class MissionCreator : MonoBehaviour
     void OnGUI()
     {
 		//For debug purposes.
-        if (GUI.Button(new Rect(10, 10, 100, 100), "Test Mission"))
-			PlaceMissionInWorld (CreateMission ());
+        //if (GUI.Button(new Rect(10, 10, 100, 100), "Test Mission"))
+        //    PlaceMissionInWorld (CreateMission ());
     }
 }

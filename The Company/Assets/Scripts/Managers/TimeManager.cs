@@ -1,11 +1,12 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System;
 
 public class TimeManager : MonoBehaviour
 {
 	public GUIM_Time timeGUI;
 
-	public System.DateTime currentDT;
+	public DateTime currentDT;
 	float startTime = 0;
 
 	// Use this for initialization
