@@ -85,23 +85,17 @@ public class BaseSpawner : MonoBehaviour {
 					RaycastHit2D checkCollison = Physics2D.Raycast(mouseToWorldPos2D,mouseToWorldPos2D);
 					if (checkCollison.collider.name == hit.collider.name)
 					{
-<<<<<<< HEAD
-						if (hit.collider.GetComponent<Continent>().deadZone == false)
-						{
-							Debug.Log("Hit object: " + hit.collider.gameObject.name);
-							Debug.Log ("Meow");
-							dragging = false;
-							baseNumber++;
-							draggingHQ.GetComponent<SafehouseData>().id = baseNumber;
-							hit.collider.gameObject.GetComponent<Continent>().addAreaHQ(baseNumber);
-							headquarters.Add (draggingHQ);
-							draggingHQ.collider2D.enabled = true;
-                            draggingHQ.transform.position = new Vector3(draggingHQ.transform.position.x, draggingHQ.transform.position.y, -0.01f);
-						}
-						else{
-							Debug.Log("DeadZone hit");
-						}
-=======
+						Debug.Log("Hit object: " + hit.collider.gameObject.name);
+						Debug.Log ("Meow");
+						dragging = false;
+						baseNumber++;
+						draggingHQ.GetComponent<SafehouseData>().id = baseNumber;
+						hit.collider.gameObject.GetComponent<Continent>().addAreaHQ(baseNumber);
+						headquarters.Add (draggingHQ);
+						draggingHQ.collider2D.enabled = true;
+                        draggingHQ.transform.position = new Vector3(draggingHQ.transform.position.x, draggingHQ.transform.position.y, -0.01f);
+
+
 						//If the names of the two game objects hit by the raycasts equal the same when the space underneath the game object is clear 
 						Debug.Log("Hit object: " + hit.collider.gameObject.name);
 						dragging = false;
@@ -113,7 +107,6 @@ public class BaseSpawner : MonoBehaviour {
 						//Adds the gameobject to a list
 						draggingHQ.collider2D.enabled = true;
 						//Turns the collider back on 
->>>>>>> origin/Petes-Twig
 					}
 				}
 				else

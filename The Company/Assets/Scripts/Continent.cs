@@ -2,14 +2,11 @@
 using System.Collections;
 using System.Collections.Generic;
 
-<<<<<<< HEAD
-[System.Serializable]
-=======
 
 /// <summary>
 /// The Continent class holds the headquarters located on the continent
 /// </summary>
->>>>>>> origin/Petes-Twig
+
 public class Continent : MonoBehaviour
 {
 	//Attributes
