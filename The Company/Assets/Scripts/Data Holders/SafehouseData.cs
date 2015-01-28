@@ -5,10 +5,26 @@ using System.Collections.Generic;
 [System.Serializable]
 public class SafehouseData : MonoBehaviour 
 {
+    GUIManager guiManager;
+
 	public int id = 0;
 	public List<int> agentList = new List<int>();
 	public List<int> equipmentList = new List<int>();
 	public List<int> vehiclesList = new List<int>();
+
+    public List<AgentData> officeAgents = new List<AgentData>();
+
+    void Start()
+    {
+        guiManager = GameObject.FindObjectOfType<GUIManager>();
+
+        AgentCreator ac = GameObject.FindObjectOfType<AgentCreator>();
+
+        for (int i = 0; i < Random.Range(0, 6); i++)
+        {
+            officeAgents.Add(ac.CreateNewAgent());
+        }
+    }
 
 	public SafehouseData ()
 	{
@@ -67,5 +83,11 @@ public class SafehouseData : MonoBehaviour
 		}
 		return idList;
 	}
+
+    void OnMouseDown()
+    {
+        guiManager.officeViewGUI.SetActive(true);
+        guiManager.officeViewGUI.GetComponent<GUIM_Office>().ShowAgents(officeAgents.ToArray());
+    }
 }
 

@@ -9,7 +9,6 @@ public class AreaCreator : MonoBehaviour {
 	public GameObject areaPlacement;
 	public Sprite tempSprite;
 	private Vector3 areaPos = Vector3.zero;
-	public int areaID = 0;
 
 	public GameObject[] areas; 
 	public Sprite[] dzAreas; 
@@ -60,8 +59,8 @@ public class AreaCreator : MonoBehaviour {
 		float zLoc = System.Convert.ToSingle (data [3]);
 		areaPos = new Vector3(xLoc, yLoc, zLoc);
 		areaPlacement = Instantiate (tempArea, areaPos, Quaternion.identity) as GameObject;
-		areaPlacement.GetComponent<Continent> ().areaID = areaID;
-		areaID++;
+		areaPlacement.GetComponent<Continent> ().areaID = data[0];
+
 
 
 		foreach (Sprite tempy in dzAreas) {

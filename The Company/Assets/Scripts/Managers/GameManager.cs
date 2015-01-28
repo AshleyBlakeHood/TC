@@ -7,8 +7,9 @@ public class GameManager : MonoBehaviour {
 	List<RepData> repListComplete = new List<RepData>();
 	public List<PlayerData> allPlayers = new List<PlayerData>();
 	RepManager rm;
-    List<string> regionNames;
+    List<string> regionNames = new List<string>();
     string saveName, mapName;
+
 	// Use this for initialization
 	void Start () {
         saveName = "TEST";
@@ -21,6 +22,7 @@ public class GameManager : MonoBehaviour {
             rm.InitRepSystem();
             regionNames = rm.GetRegions();
             rm.GetRegionWeightingsByDifficulty(0.5);
+			//mm.InitMissionCreator();
 
 		}
 		catch
@@ -67,4 +69,9 @@ public class GameManager : MonoBehaviour {
 			p.repList.Remove(repObj);
 		}
 	}
+
+    public List<string> GetRegionNames()
+    {
+        return regionNames;
+    }
 }

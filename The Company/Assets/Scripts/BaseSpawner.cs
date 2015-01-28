@@ -75,6 +75,7 @@ public class BaseSpawner : MonoBehaviour {
 							hit.collider.gameObject.GetComponent<Continent>().addAreaHQ(baseNumber);
 							headquarters.Add (draggingHQ);
 							draggingHQ.collider2D.enabled = true;
+                            draggingHQ.transform.position = new Vector3(draggingHQ.transform.position.x, draggingHQ.transform.position.y, -0.01f);
 						}
 						else{
 							Debug.Log("DeadZone hit");

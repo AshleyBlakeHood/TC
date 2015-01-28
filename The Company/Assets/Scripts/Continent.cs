@@ -2,13 +2,14 @@
 using System.Collections;
 using System.Collections.Generic;
 
+[System.Serializable]
 public class Continent : MonoBehaviour
 {
 	public List<int> hqList = new List<int>();
 	public bool deadZone = false;
 	public Sprite deadSprite;
 	public Sprite fineSprite;
-	public int areaID;
+	public string areaID;
 
 	void Start () {
 		fineSprite = GetComponent<SpriteRenderer>().sprite;

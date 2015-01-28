@@ -29,13 +29,12 @@ public class Gun
 	public string regionOfOrigin = "Earth";
 	public float age;
 	public int storageUnits = 1;
-	public Gun[] upgrades; //0 = Base Level, 1 = Level 2 etc.
 
 	//Inside Game
 	public Texture2D image;
 
 	public Gun (string nam, int dam, int acc, int iRange, int cSize, float fRate, float rTime, float wight, string sze, float iPrice, int fFactor, int iNoise, bool conceal, int mBoost, float iRarity,
-	            string region, float iAge, int storage, Gun[] iUpgrades)
+	            string region, float iAge, int storage)
 	{
 		name = nam;
 		damage = dam;
@@ -55,6 +54,5 @@ public class Gun
 		regionOfOrigin = region;
 		age = iAge;
 		storageUnits = storage;
-		upgrades = iUpgrades;
 	}
 }

@@ -14,10 +14,6 @@ public class GunMarket : MonoBehaviour
 	// Use this for initialization
 	void Start ()
 	{
-		guns [0] = new Gun ("P90", 12, 56, 175, 50, 2.23f, 4, 12, "Medium", 250, 1, 46, false, 0, 60, "USA", 1, 2, null);
-		guns [1] = new Gun ("AK-47", 12, 56, 175, 50, 2.23f, 4, 12, "Medium", 250, 1, 46, false, 0, 60, "USA", 1, 2, null);
-		guns [2] = new Gun ("9MM Pisotl", 12, 56, 175, 50, 2.23f, 4, 12, "Small", 250, 1, 46, true, 0, 60, "USA", 1, 2, null);
-
 		guiManager = GameObject.FindGameObjectWithTag ("GUI Manager").GetComponent<GUIManager>();
 		gunManager = GameObject.FindGameObjectWithTag ("Gun Manager").GetComponent<GunManager>();
 		player = GameObject.FindGameObjectWithTag ("Player").GetComponent<PlayerData> ();
@@ -36,19 +32,19 @@ public class GunMarket : MonoBehaviour
 		//Needs reprogramming by changing ItemWeightHolder to a template class.
 		for (int gunsIndex = 0; gunsIndex < guns.Length; gunsIndex++)
 		{
-			ItemWeightHolder[] gunWeights = new ItemWeightHolder[gunManager.gunMarketGuns.Count];
+            ItemWeightHolder[] gunWeights = new ItemWeightHolder[gunManager.allGuns.Length];
 
 			for (int i = 0; i < gunWeights.Length; i++)
 			{
-				gunWeights[i] = new ItemWeightHolder(gunManager.gunMarketGuns[i].name, gunManager.gunMarketGuns[i].rarity);
+                gunWeights[i] = new ItemWeightHolder(gunManager.allGuns[i].name, gunManager.allGuns[i].rarity);
 			}
 
 			string selectedGun = SelectionEngine.GetItem (gunWeights);
 
-			for (int i = 0; i < gunManager.gunMarketGuns.Count; i++)
+            for (int i = 0; i < gunManager.allGuns.Length; i++)
 			{
-				if (gunManager.gunMarketGuns[i].name == selectedGun)
-					guns[gunsIndex] = gunManager.gunMarketGuns[i];
+                if (gunManager.allGuns[i].name == selectedGun)
+                    guns[gunsIndex] = gunManager.allGuns[i];
 			}
 		}
 	}
