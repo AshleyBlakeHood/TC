@@ -9742,7 +9742,6 @@ MonoBehaviour:
   areaPlacement: {fileID: 0}
   tempSprite: {fileID: 0}
   areas: []
-  dzAreas: []
 --- !u!1 &1545416444
 GameObject:
   m_ObjectHideFlags: 0

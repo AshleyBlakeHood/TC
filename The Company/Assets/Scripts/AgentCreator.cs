@@ -5,8 +5,6 @@ public class AgentCreator: MonoBehaviour
 {
 	public GameObject agentPrefab;
 
-	public GUIM_AgentViewer agentViewer;
-
 	public TextAsset englishNames;
 	public TextAsset maleHeights;
 	public TextAsset femaleHeights;
@@ -693,21 +691,6 @@ public class AgentCreator: MonoBehaviour
 
 		PrimaryStats stats = GetPrimaryStats ();
 		SkillsHolder skills = GetSkills ();
-
-		//Debug.Log (string.Format ("Stats: Charisma: {0} Inteligence: {1} Agility: {2}.", stats.charisma, stats.intelligence, stats.agility));
-		//Debug.Log (string.Format ("Skills: Stealth: {0} Steal: {1} Firearms: {2} Unarmed: {3} First Aid: {4} Lockpick: {5} Hacking: {6} Perception: {7} Investigation: {8} Deception: {9} Persuasion: {10}",
-		                          //skills.stealth, skills.steal, skills.firearms, skills.unarmed, skills.firstaid, skills.lockpick, skills.hacking,
-		                          //skills.perception, skills.investigation, skills.deception, skills.persuasion));
-
-		agentViewer.txtName.text = "Name: " + forename + " " + surname;
-		agentViewer.txtCodename.text = "Codename: " + codename;
-		agentViewer.txtAliases.text = "Aliases: " + alias;
-		agentViewer.txtGender.text = "Gender: " + gender;
-		agentViewer.txtDOB.text = "Date of Birth: " + birthday.Day + "/" + birthday.Month + "/" + birthday.Year + " (" + CalculateAge (System.DateTime.Now, birthday.Day, birthday.Month, birthday.Year) + ")";
-		agentViewer.txtHeight.text = "Height: " + height;
-		agentViewer.txtEyes.text = "Eyes: " + eyes;
-		agentViewer.txtHair.text = "Hair: " + hair;
-		agentViewer.txtSeed.text = "Seed: " + seed;
 
 		return new AgentData (forename, surname, codename, aliases, gender, birthday.Day.ToString (), birthday.Month.ToString (), birthday.Year.ToString (), height, eyes, hair, stats, skills);
 	}

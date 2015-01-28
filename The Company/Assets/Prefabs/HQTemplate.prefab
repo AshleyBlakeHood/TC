@@ -60,7 +60,7 @@ MonoBehaviour:
   officeAgents: []
 --- !u!114 &11400002
 MonoBehaviour:
-  m_ObjectHideFlags: 0
+  m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 100000}
@@ -93,7 +93,7 @@ SpriteRenderer:
   m_ScaleInLightmap: 1
   m_SortingLayerID: 3341210213
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: c74806ad03917214293bed54e84e084a, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 34e54f69ba1c72047b8fc4f8739d7350, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
 --- !u!1001 &100100000
 Prefab:
