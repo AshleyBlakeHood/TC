@@ -2,8 +2,10 @@
 using System.Collections;
 using System.Collections.Generic;
 
-public class GameManager : MonoBehaviour {
-	
+public class GameManager : MonoBehaviour
+{
+	public GameObject notifyObject;
+
 	List<RepData> repListComplete = new List<RepData>();
 	public List<PlayerData> allPlayers = new List<PlayerData>();
 	RepManager rm;
@@ -34,7 +36,14 @@ public class GameManager : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 	}
-	
+
+	public void NotifyPlayerOfSpawn(Vector3 position, Color color)
+	{
+		GameObject notify = Instantiate (notifyObject, position, Quaternion.identity) as GameObject;
+		notify.GetComponent<SpriteRenderer> ().color = color;
+		notify.name = "Notify Object";
+	}
+
 	public void populatePlayerList()
 	{
 		//This will be where we create the player objects

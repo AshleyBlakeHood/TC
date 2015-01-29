@@ -39,6 +39,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 90330d442023e8b45b572fc655356daf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  notifyObject: {fileID: 165628, guid: f698df58ad536bd4690096a1f4e2337a, type: 2}
   allPlayers: []
 --- !u!1001 &100100000
 Prefab:

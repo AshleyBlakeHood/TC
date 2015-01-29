@@ -122,44 +122,15 @@ public class MissionCreator : MonoBehaviour
 
 	public void PlaceMissionInWorld(MissionData missionData)
 	{
-		//Cache the sprite and position.
-		Sprite continentSprite = missionData.location.GetComponent<SpriteRenderer> ().sprite;
-		Vector3 continentPos = missionData.location.transform.position;
+        Vector2 spawnPosition = missionData.location.GetRandomPointOnContinent();
 
-		RaycastHit2D continentHit;
-		bool hitContinent = false;
+		if (spawnPosition == null)
+			return;
 
-		int tries = 0;
-
-		//Continually look for the location continent through the use of raycasts.
-		while (!hitContinent)
-		{
-			float x = Random.Range (-continentSprite.bounds.extents.x, continentSprite.bounds.extents.x);
-			float y = Random.Range (-continentSprite.bounds.extents.y, continentSprite.bounds.extents.y);
-
-			Ray findContinentRay = new Ray(new Vector3(continentPos.x + x, continentPos.y + y, transform.position.z -10), Vector3.forward);
-			continentHit = Physics2D.GetRayIntersection(findContinentRay);
-
-			if (continentHit.collider != null)
-			{
-				if (continentHit.collider.name.Replace ("(Clone)", "") == missionData.location.name)
-				{
-					hitContinent = true;
-                    GameObject g = Instantiate(missionObject, new Vector3(continentPos.x + x, continentPos.y + y, -0.01f), Quaternion.identity) as GameObject;
-					g.name = "Mission: " + missionData.missionName;
-					g.AddComponent<MissionObject>().missionData = missionData;
-                    g.transform.parent = missionObjectHolder.transform;
-				}
-			}
-
-			tries++;
-
-			if (tries > 50)
-			{
-				Debug.Log ("Fail");
-				hitContinent = true;
-			}
-		}
+        GameObject g = Instantiate(missionObject, new Vector3(spawnPosition.x, spawnPosition.y, -0.01f), Quaternion.identity) as GameObject;
+        g.name = "Mission: " + missionData.missionName;
+        g.AddComponent<MissionObject>().missionData = missionData;
+        g.transform.parent = missionObjectHolder.transform;
 	}
 
     void OnGUI()

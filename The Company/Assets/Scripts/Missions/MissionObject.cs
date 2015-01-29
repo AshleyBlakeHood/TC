@@ -4,6 +4,7 @@ using System;
 
 public class MissionObject : MonoBehaviour
 {
+	GameManager gameManager;
     GUIManager guiManager;
     TimeManager timeManager;
     MissionCreator missionCreator;
@@ -16,6 +17,7 @@ public class MissionObject : MonoBehaviour
 	// Use this for initialization
 	void Start ()
     {
+		gameManager = FindObjectOfType<GameManager>();
         guiManager = FindObjectOfType<GUIManager>();
         timeManager = FindObjectOfType<TimeManager>();
         missionCreator = FindObjectOfType<MissionCreator>();
@@ -24,6 +26,9 @@ public class MissionObject : MonoBehaviour
 
         missionStartTime = timeManager.currentDT;
         missionEndTime = missionStartTime.AddSeconds(missionData.timeLimit);
+
+		//Notify Player
+		gameManager.NotifyPlayerOfSpawn (transform.position, Color.blue);
 	}
 	
 	// Update is called once per frame

@@ -10,15 +10,15 @@ public class AreaCreator : MonoBehaviour {
 	public Sprite tempSprite;
 	private Vector3 areaPos = Vector3.zero;
 
-	public GameObject[] areas; 
-	
+	public Sprite[] areaResources;
+	public GameObject[] areas;
+
 	// Use this for initialization
 	void Start () {
-		areas = Resources.LoadAll<GameObject>("AreaPrefabs");
+		areaResources = Resources.LoadAll<Sprite>("Sprites");
+		areas = new GameObject[areaResources.Length];
+
 		ReadInAreas ();
-		foreach (var x in areas) {
-			Debug.Log ("Quack: " + x.gameObject.name);
-		}
 	}
 	
 	// Update is called once per frame
@@ -37,17 +37,19 @@ public class AreaCreator : MonoBehaviour {
 			{
 				continue;
 			}
-			instantiateAreas(dataLineSplit);
+			instantiateAreas(dataLineSplit, i);
 		}
 	}
 
-	public void instantiateAreas(string[] data){
-		Debug.Log (data[0]);
+	public void instantiateAreas(string[] data, int index)
+	{
+		Sprite selectedSprite = new Sprite();
 
-		foreach (var curArea in areas) {
-			if(data[0] == curArea.gameObject.name)
+		foreach (Sprite curArea in areaResources)
+		{
+			if(data[0] == curArea.name)
 			{
-				tempArea = curArea.gameObject;
+				selectedSprite = curArea;
 			}
 		}
 		
@@ -55,7 +57,20 @@ public class AreaCreator : MonoBehaviour {
 		float yLoc = System.Convert.ToSingle (data [2]);
 		float zLoc = System.Convert.ToSingle (data [3]);
 		areaPos = new Vector3(xLoc, yLoc, zLoc);
-		areaPlacement = Instantiate (tempArea, areaPos, Quaternion.identity) as GameObject;
+
+		areaPlacement = new GameObject (data [0]);
+		areaPlacement.transform.position = areaPos;
+
+		SpriteRenderer sr = areaPlacement.AddComponent<SpriteRenderer> ();
+		sr.sprite = selectedSprite;
+		sr.color = new Color (0.35294117647f, 0.50196078431f, 0.73725490196f);
+		Debug.Log ("Specific Setting of Continent Colour Happens Here!");
+
+		areaPlacement.AddComponent<Continent> ();
+		areaPlacement.AddComponent<PolygonCollider2D> ();
+
+		areas [index] = areaPlacement;
+
 		areaPlacement.GetComponent<Continent> ().areaID = data[0];
 
 	}
