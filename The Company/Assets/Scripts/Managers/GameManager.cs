@@ -6,6 +6,8 @@ public class GameManager : MonoBehaviour
 {
 	public GameObject notifyObject;
 
+	public GameObject dynamicObjectHolder;
+
 	List<RepData> repListComplete = new List<RepData>();
 	public List<PlayerData> allPlayers = new List<PlayerData>();
 	RepManager rm;
@@ -13,7 +15,16 @@ public class GameManager : MonoBehaviour
     string saveName, mapName;
 
 	// Use this for initialization
-	void Start () {
+	void Start ()
+	{
+		if (dynamicObjectHolder == null)
+		{
+			if (GameObject.Find ("Dynamic Object Holder") != null)
+				dynamicObjectHolder = GameObject.Find ("Dynamic Object Holder");
+			else
+				dynamicObjectHolder = new GameObject("Dynamic Object Holder");
+		}
+
         saveName = "TEST";
         mapName = "EarthContinents";
 		populatePlayerList();
@@ -31,6 +42,9 @@ public class GameManager : MonoBehaviour
 		{
 			Debug.Log("No Rep Manager");
 		}
+
+		if (PlayerPrefs.GetInt ("Colours Set") == 1)
+			Camera.main.backgroundColor = new Color (PlayerPrefs.GetFloat ("Background ColourR"), PlayerPrefs.GetFloat ("Background ColourG"), PlayerPrefs.GetFloat ("Background ColourB"));
 	}
 	
 	// Update is called once per frame
@@ -59,4 +73,9 @@ public class GameManager : MonoBehaviour
     {
         return regionNames;
     }
+
+	public static void LoadMainScene()
+	{
+		Application.LoadLevel ("Main Scene");
+	}
 }

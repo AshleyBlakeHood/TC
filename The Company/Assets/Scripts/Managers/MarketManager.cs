@@ -4,6 +4,7 @@ using System.Collections;
 public class MarketManager : MonoBehaviour
 {
     AreaCreator areaCreator;
+	GameManager gameManager;
 
     public GameObject marketPrefab;
     public GameObject blackMarketPrefab;
@@ -11,6 +12,7 @@ public class MarketManager : MonoBehaviour
 	// Use this for initialization
 	void Start ()
     {
+		gameManager = GameObject.FindObjectOfType<GameManager>();
 		areaCreator = FindObjectOfType<AreaCreator> ();
 
         for (int i = 0; i < areaCreator.areas.Length; i++)
@@ -28,9 +30,11 @@ public class MarketManager : MonoBehaviour
 
 			GameObject market = Instantiate(marketPrefab, new Vector3(marketSpawnPosition.x, marketSpawnPosition.y, -0.01f), Quaternion.identity) as GameObject;
             market.name = continent.name + " Market";
+			market.transform.parent = continent.transform;
 
 			GameObject blackMarket = Instantiate(blackMarketPrefab, new Vector3(blackMarketSpawnPosition.x, blackMarketSpawnPosition.y, -0.01f), Quaternion.identity) as GameObject;
-            market.name = continent.name + " Black Market";
+			blackMarket.name = continent.name + " Black Market";
+			blackMarket.transform.parent = continent.transform;
         }
 	}
 	

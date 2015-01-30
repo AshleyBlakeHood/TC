@@ -2,7 +2,10 @@ using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
 
-public class AreaCreator : MonoBehaviour {
+public class AreaCreator : MonoBehaviour
+{
+	GameManager gameManager;
+
 	public TextAsset areaFile;
 	public Continent contIns;
 	public GameObject tempArea;
@@ -14,8 +17,11 @@ public class AreaCreator : MonoBehaviour {
 	public GameObject[] areas;
 
 	// Use this for initialization
-	void Start () {
-		areaResources = Resources.LoadAll<Sprite>("Sprites");
+	void Start ()
+	{
+		gameManager = FindObjectOfType<GameManager> ();
+
+		areaResources = Resources.LoadAll<Sprite>("Sprites/World");
 		areas = new GameObject[areaResources.Length];
 
 		ReadInAreas ();
@@ -63,12 +69,16 @@ public class AreaCreator : MonoBehaviour {
 
 		SpriteRenderer sr = areaPlacement.AddComponent<SpriteRenderer> ();
 		sr.sprite = selectedSprite;
-		sr.color = new Color (0.35294117647f, 0.50196078431f, 0.73725490196f);
-		Debug.Log ("Specific Setting of Continent Colour Happens Here!");
+
+		if (PlayerPrefs.GetInt ("Colours Set") == 0)
+			sr.color = new Color (0.35294117647f, 0.50196078431f, 0.73725490196f);
+		else
+			sr.color = new Color (PlayerPrefs.GetFloat ("World ColourR"), PlayerPrefs.GetFloat ("World ColourG"), PlayerPrefs.GetFloat ("World ColourB"));
 
 		areaPlacement.AddComponent<Continent> ();
 		areaPlacement.AddComponent<PolygonCollider2D> ();
-
+		areaPlacement.layer = LayerMask.NameToLayer ("Continents");
+		areaPlacement.transform.parent = gameManager.dynamicObjectHolder.transform;
 		areas [index] = areaPlacement;
 
 		areaPlacement.GetComponent<Continent> ().areaID = data[0];

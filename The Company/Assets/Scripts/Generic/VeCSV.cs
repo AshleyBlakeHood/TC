@@ -54,6 +54,13 @@ class VeCSV
 
     public string Get(string header, int subValue)
     {
+		try
+		{
+		string v = data [subValue, GetHeaderIntValueFromString (header)];
+		}
+		catch{
+			string ss = "s";
+				}
 		return data[subValue, GetHeaderIntValueFromString(header)];
     }
 
