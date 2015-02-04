@@ -14,6 +14,14 @@ public class GameManager : MonoBehaviour
     List<string> regionNames = new List<string>();
     string saveName, mapName;
 
+	public static string dataFolder
+	{
+		get
+		{
+			return Application.dataPath;
+		}
+	}
+
 	// Use this for initialization
 	void Start ()
 	{
