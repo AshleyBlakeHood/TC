@@ -76,6 +76,19 @@ public class MissionCreator : MonoBehaviour
         int monetaryReward = Random.Range(int.Parse(missionWeightings.Get("Min Monetary Reward", typeSelectedIndex)), int.Parse(missionWeightings.Get("Max Monetary Reward", typeSelectedIndex)));
         Continent location = areaCreator.areas[Random.Range(0, areaCreator.areas.Length)].GetComponent<Continent>();
 
+        // Item rewards
+        int itemRewardNum;
+        int itemRewardAmount = 0;
+        string itemReward = null;
+
+        if (missionWeightings.Get("Max Items", typeSelectedIndex) != "0")
+        {
+            itemRewardNum = Random.Range(0, int.Parse(missionWeightings.Get("Max Items", typeSelectedIndex)));
+            itemReward = missionWeightings.Get("Item " + itemRewardNum, typeSelectedIndex);
+            itemRewardAmount = Random.Range(int.Parse(missionWeightings.Get("Min Item " + itemRewardNum + " Amount", typeSelectedIndex)), int.Parse(missionWeightings.Get("Max Item " + itemRewardNum + " Amount", typeSelectedIndex)));
+        }
+
+
         int[] skillValues = new int[11];
 
 		//Randomly assign skill requirements and then base them on the amount of agents.
@@ -90,7 +103,7 @@ public class MissionCreator : MonoBehaviour
 		string missionName = PopulateMissionNameWithRandomValues(missionNames.Get (type, Random.Range (1, missionNames.subValueCount)));
 
 		//Return a new mission data object.
-		return new MissionData(missionName, skills, monetaryReward, location, type, amountOfAgents, timeLimit, "Client Name");
+        return new MissionData(missionName, skills, monetaryReward, itemRewardAmount, itemReward, location, type, amountOfAgents, timeLimit, "Client Name");
     }
 
 	private string PopulateMissionNameWithRandomValues(string missionName)

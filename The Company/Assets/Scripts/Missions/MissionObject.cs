@@ -49,4 +49,36 @@ public class MissionObject : MonoBehaviour
         guiManager.GetComponent<GUIM_Mission>().SetMissionData(missionData, this);
         guiManager.GetComponent<GUIM_Mission>().ShowMission();
     }
+
+    public void CompleteMission (Player plr)
+    {
+        CashManager cm = GameObject.FindObjectOfType<CashManager>();
+        cm.investment((double)missionData.monetaryReward);
+
+        if (missionData.itemRewardName == "Agents")
+        {
+            AgentCreator ac = GameObject.FindObjectOfType<AgentCreator>();
+            SafehouseData shd = GameObject.FindObjectOfType<SafehouseData>();
+            for (int i = 0; i != missionData.itemRewardAmount; i++)
+            {
+                shd.officeAgents.Add(ac.CreateNewAgent());
+            }
+        }
+        else if (missionData.itemRewardName.Contains("(Gun)"))
+        {
+
+        }
+        else if (missionData.itemRewardName.Contains("(Armour)"))
+        {
+
+        }
+        else if (missionData.itemRewardName.Contains("(Equipment)"))
+        {
+
+        }
+        else if (missionData.itemRewardName.Contains("(Vehicle)"))
+        {
+
+        }
+    }
 }

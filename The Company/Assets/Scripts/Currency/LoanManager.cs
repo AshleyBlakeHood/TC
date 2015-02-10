@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
+using System.IO;
 
 public class LoanManager : MonoBehaviour {
 
@@ -32,7 +33,24 @@ public class LoanManager : MonoBehaviour {
     void readInData()
     {
         //Split by lines and trim empty lines
-        string[] lines = loadList.text.Trim(System.Environment.NewLine.ToCharArray()).Split(System.Environment.NewLine.ToCharArray());
+        List<string> line = new List<string>(); // As list to data can be added to end
+        line.AddRange(loadList.text.Trim(System.Environment.NewLine.ToCharArray()).Split(System.Environment.NewLine.ToCharArray()));
+        //string[] lines = loadList.text.Trim(System.Environment.NewLine.ToCharArray()).Split(System.Environment.NewLine.ToCharArray());
+
+        if (!Directory.Exists(GameManager.dataFolder + "/Loans"))
+        {
+            Directory.CreateDirectory(GameManager.dataFolder + "/Loans");
+        }
+
+        string[] files = Directory.GetFiles(GameManager.dataFolder + "/Loans/");
+
+        foreach (string file in files)
+        {
+            //lines = file.Trim(System.Environment.NewLine.ToCharArray()).Split(System.Environment.NewLine.ToCharArray());
+            line.AddRange(file.Trim(System.Environment.NewLine.ToCharArray()).Split(System.Environment.NewLine.ToCharArray()));
+        }
+
+        string[] lines = line.ToArray(); // Changes list to array so not to break code further down
 
         //Initialise loan array
         allLoans = new Loan[lines.Length - 1];
