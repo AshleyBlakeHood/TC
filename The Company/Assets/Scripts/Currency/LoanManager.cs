@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.IO;
+using System;
 
 public class LoanManager : MonoBehaviour {
 
@@ -46,8 +47,16 @@ public class LoanManager : MonoBehaviour {
 
         foreach (string file in files)
         {
-            //lines = file.Trim(System.Environment.NewLine.ToCharArray()).Split(System.Environment.NewLine.ToCharArray());
-            line.AddRange(file.Trim(System.Environment.NewLine.ToCharArray()).Split(System.Environment.NewLine.ToCharArray()));
+            try
+            {
+                //lines = file.Trim(System.Environment.NewLine.ToCharArray()).Split(System.Environment.NewLine.ToCharArray());
+                line.AddRange(file.Trim(System.Environment.NewLine.ToCharArray()).Split(System.Environment.NewLine.ToCharArray()));
+            }
+            catch (Exception e)
+            {
+
+            }
+
         }
 
         string[] lines = line.ToArray(); // Changes list to array so not to break code further down
@@ -107,7 +116,7 @@ public class LoanManager : MonoBehaviour {
     // Returns the randomized number 
     public float RandomPicker(string input)
     {
-        return (Random.Range(float.Parse(input.Substring(0, input.IndexOf("-"))), 
+        return (UnityEngine.Random.Range(float.Parse(input.Substring(0, input.IndexOf("-"))), 
                              float.Parse(input.Substring(input.IndexOf("-"), input.Length - 1))));
     }
 
@@ -115,7 +124,7 @@ public class LoanManager : MonoBehaviour {
     // Returns the randomized number 
     public int RandomPickerInt(string input)
     {
-        return (Random.Range(int.Parse(input.Substring(0, input.IndexOf("-"))), 
+        return (UnityEngine.Random.Range(int.Parse(input.Substring(0, input.IndexOf("-"))), 
                              int.Parse(input.Substring(input.IndexOf("-"), input.Length - 1))));
     }
 
