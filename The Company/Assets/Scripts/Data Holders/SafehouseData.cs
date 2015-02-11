@@ -18,12 +18,12 @@ public class SafehouseData : MonoBehaviour
     {
         guiManager = GameObject.FindObjectOfType<GUIManager>();
 
-        AgentCreator ac = GameObject.FindObjectOfType<AgentCreator>();
-
-        for (int i = 0; i < Random.Range(0, 6); i++)
-        {
-            officeAgents.Add(ac.CreateNewAgent());
-        }
+//        AgentCreator ac = GameObject.FindObjectOfType<AgentCreator>();
+//
+//        for (int i = 0; i < Random.Range(0, 6); i++)
+//        {
+//            officeAgents.Add(ac.CreateNewAgent());
+//        }
     }
 
 	public SafehouseData ()
@@ -87,7 +87,7 @@ public class SafehouseData : MonoBehaviour
     void OnMouseDown()
     {
         guiManager.officeViewGUI.SetActive(true);
-        guiManager.officeViewGUI.GetComponent<GUIM_Office>().ShowAgents(officeAgents.ToArray());
+        guiManager.officeViewGUI.GetComponent<GUIM_Office>().ShowAgents(this);
     }
 }
 

@@ -26,6 +26,8 @@ public class AgentData
 	public float mapX = 0;
 	public float mapY = 0;
 
+	public float wage = 0;
+
 	public AgentData (string fName, string sName, string cName, string[] aNames, string gend, string dob, string mob, string yob, string iHeight, string iEyes, string iHair, PrimaryStats iStats, SkillsHolder iSkills)
 	{
 		foreame = fName;
@@ -46,5 +48,16 @@ public class AgentData
 
 		stats = iStats;
 		skills = iSkills;
+
+		CalculateWage ();
+	}
+
+	private void CalculateWage()
+	{
+		wage = skills.deception + skills.firearms + skills.firstaid + skills.hacking + skills.investigation + skills.lockpick + skills.perception + skills.persuasion + skills.steal + skills.stealth + skills.unarmed;
+		wage = (wage * 10) / 11;
+		wage += ((stats.agility + stats.charisma + stats.intelligence) * 100) / 3;
+
+		wage = Mathf.Round (wage);
 	}
 }

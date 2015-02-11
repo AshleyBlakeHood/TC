@@ -1,10 +1,11 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class CashManager : MonoBehaviour {
+public class CashManager : SubjectMonobehaviour
+{
 
     bool runOnceInterest = false, runOnceBills = false;
-    double interestRate = 0.2, currentHeld = 0, billsAmount = 0;
+    public double interestRate = 0.2, currentHeld = 0, billsAmount = 0;
 
     public double current { get { return currentHeld; } }
 
@@ -23,6 +24,7 @@ public class CashManager : MonoBehaviour {
     public void bills(double amount)
     {
         billsAmount += amount;
+		Notify ();
     }
 
     //// Sets the time interval for adding interest to the players account
@@ -90,22 +92,23 @@ public class CashManager : MonoBehaviour {
 
             currentHeld -= billsAmount;
         }
+
+		Notify ();
     }
 
     // Use this for initialization
     void Start()
     {
-
         tm = GameObject.Find("Time Manager").GetComponent<TimeManager>();
 
         StartCoroutine(wait());
-
+		currentHeld = 10000;
+		Notify ();
     }
 
     // Update is called once per frame
     void Update()
     {
-
     }
 
     IEnumerator wait() // Runs methods every 10 seconds

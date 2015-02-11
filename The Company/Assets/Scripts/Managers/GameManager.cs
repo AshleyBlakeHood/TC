@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
+using System.IO;
 
 public class GameManager : MonoBehaviour
 {
@@ -18,7 +19,7 @@ public class GameManager : MonoBehaviour
 	{
 		get
 		{
-			return Application.dataPath;
+			return Application.dataPath + Path.DirectorySeparatorChar + "Data";
 		}
 	}
 

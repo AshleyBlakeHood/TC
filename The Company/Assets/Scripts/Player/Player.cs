@@ -2,9 +2,9 @@
 using System.Collections;
 using System.Collections.Generic;
 
-public class Player : MonoBehaviour
+public class Player : SubjectMonobehaviour
 {
-	public List<string> equipment = new List<string>();
+	public CashManager cashManager;
 
     private float maxReputation = 100;
     private float minimumReputation = 0;
@@ -14,7 +14,7 @@ public class Player : MonoBehaviour
 	// Use this for initialization
 	void Start ()
 	{
-		
+		cashManager = GetComponent<CashManager> ();
 	}
 	
 	// Update is called once per frame
@@ -39,6 +39,8 @@ public class Player : MonoBehaviour
     public void SetGlobalReputation(float newGlobalReputation)
     {
         globalReputation = newGlobalReputation;
+
+		Notify ();
     }
 
     /// <summary>
@@ -50,9 +52,19 @@ public class Player : MonoBehaviour
         globalReputation += amount;
 
         if (globalReputation > maxReputation)
+		{
             globalReputation = maxReputation;
 
+			Debug.Log ("Reputation WIN!");
+		}
+
         if (globalReputation < minimumReputation)
+		{
             globalReputation = minimumReputation;
+
+			Debug.Log ("Reputation LOSE");
+		}
+
+		Notify ();
     }
 }

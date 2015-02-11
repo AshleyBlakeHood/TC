@@ -1,5 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System.IO;
+using System.Collections.Generic;
 
 public class AgentCreator: MonoBehaviour
 {
@@ -92,10 +94,11 @@ public class AgentCreator: MonoBehaviour
 
 	public void ReadInNameData()
 	{
+		List<AvatarHolder> newData = new List<AvatarHolder> ();
+
+		//Base Game Loading
 		string[] lines = englishNames.text.Trim ('\n').Split ('\n');
-		
-		data = new AvatarHolder[lines.Length];
-		
+
 		for (int i = 0; i < lines.Length; i++)
 		{
 			string[] lineSplit = lines[i].Split (',');
@@ -103,8 +106,29 @@ public class AgentCreator: MonoBehaviour
 			if (lineSplit.Length < 4)
 				continue;
 			
-			data[i] = new AvatarHolder(lineSplit[0], lineSplit[1], lineSplit[2], lineSplit[3]);
+			newData.Add(new AvatarHolder(lineSplit[0], lineSplit[1], lineSplit[2], lineSplit[3]));
 		}
+
+		//Mod Loading
+		Directory.CreateDirectory (GameManager.dataFolder + Path.DirectorySeparatorChar + "Names");
+		string[] modFiles = Directory.GetFiles (GameManager.dataFolder + Path.DirectorySeparatorChar + "Names");
+
+		for (int i = 0; i < modFiles.Length; i++)
+		{
+			string[] modLines = modFiles[i].Trim ('\n').Split ('\n');
+			
+			for (int j = 0; j < modLines.Length; j++)
+			{
+				string[] lineSplit = modLines[j].Split (',');
+				
+				if (lineSplit.Length < 4)
+					continue;
+				
+				newData.Add (new AvatarHolder(lineSplit[0], lineSplit[1], lineSplit[2], lineSplit[3]));
+			}
+		}
+
+		data = newData.ToArray ();
 	}
 
 	public void ReadInHeightData()
@@ -217,10 +241,11 @@ public class AgentCreator: MonoBehaviour
 
 	public void ReadInVerbs()
 	{
+		List<string> verbListIn = new List<string> ();
+
+		//Main Loading
 		string[] lines = verbs.text.Trim ('\n').Split ('\n');
-		
-		verbList = new string[lines.Length];
-		
+
 		for (int i = 0; i < lines.Length; i++)
 		{
 			string[] lineSplit = lines[i].Split (',');
@@ -228,15 +253,37 @@ public class AgentCreator: MonoBehaviour
 			if (lineSplit.Length < 1)
 				continue;
 			
-			verbList[i] = lineSplit[0];
+			verbListIn.Add (lineSplit[0]);
 		}
+
+		//Mod Loading
+		Directory.CreateDirectory (GameManager.dataFolder + Path.DirectorySeparatorChar + "Codename Verbs");
+		string[] verbFiles = Directory.GetFiles (GameManager.dataFolder + Path.DirectorySeparatorChar + "Codename Verbs");
+
+		for (int i = 0; i < verbFiles.Length; i++)
+		{
+			lines = verbFiles[i].Trim ('\n').Split ('\n');
+
+			for (int j = 0; j < lines.Length; j++)
+			{
+				string[] lineSplit = lines[j].Split (',');
+				
+				if (lineSplit.Length < 1)
+					continue;
+				
+				verbListIn.Add (lineSplit[0]);
+			}
+		}
+
+		verbList = verbListIn.ToArray ();
 	}
 
 	public void ReadInCodenameTemplates()
 	{
+		List<string> codenamesIn = new List<string> ();
+
+		//Main Loading
 		string[] lines = codenameTemplates.text.Trim ('\n').Split ('\n');
-		
-		codenames = new string[lines.Length];
 		
 		for (int i = 0; i < lines.Length; i++)
 		{
@@ -245,8 +292,29 @@ public class AgentCreator: MonoBehaviour
 			if (lineSplit.Length < 1)
 				continue;
 			
-			codenames[i] = lineSplit[0];
+			codenamesIn.Add (lineSplit[0]);
 		}
+
+		//Mod Loading
+		Directory.CreateDirectory (GameManager.dataFolder + Path.DirectorySeparatorChar + "Codename Templates");
+		string[] codenameFiles = Directory.GetFiles (GameManager.dataFolder + Path.DirectorySeparatorChar + "Codename Templates");
+
+		for (int i = 0; i < codenameFiles.Length; i++)
+		{
+			lines = codenameFiles[i].Trim ('\n').Split ('\n');
+			
+			for (int j = 0; j < lines.Length; j++)
+			{
+				string[] lineSplit = lines[j].Split (',');
+				
+				if (lineSplit.Length < 1)
+					continue;
+				
+				codenamesIn.Add (lineSplit[0]);
+			}
+		}
+
+		codenames = codenamesIn.ToArray ();
 	}
 
 	public void ReadInPrimaryStats()
