@@ -9,9 +9,18 @@ public class CameraController : MonoBehaviour {
 	bool movingCamera = false;
 	Vector3 previousMousePos = Vector3.zero;
 
+	public float mapX = 3.0f;
+	public float mapY = 3.0f;
+
+	public Vector3 upper;
+	public Vector3 lower;
+
+
+	
+
 	// Use this for initialization
 	void Start () {
-	
+		camera.transform.position = new Vector3 (camera.transform.position.x, camera.transform.position.y, maxZoom);
 	}
 	
 	// Update is called once per frame
@@ -48,5 +57,37 @@ public class CameraController : MonoBehaviour {
 
 		if (Input.GetMouseButtonUp (2))
 			movingCamera = false;
+
+
+		float dist = (transform.position - camera.transform.position).z; 
+		float leftBorder = camera.ViewportToWorldPoint(new Vector3(-1,1,dist)).x; 
+		float rightBorder = camera.ViewportToWorldPoint(new Vector3(1,-1,dist)).x;
+		float topBorder = camera.ViewportToWorldPoint(new Vector3(1,1,dist)).y; 
+		float bottomBorder = camera.ViewportToWorldPoint(new Vector3(-1,-1,dist)).y;
+
+		float xLimits = Mathf.Clamp (transform.position.x, leftBorder, rightBorder);
+		float yLimits = Mathf.Clamp (transform.position.y, topBorder, bottomBorder);
+
+		camera.transform.position = new Vector3(xLimits,camera.transform.position.y,camera.transform.position.z);
+
+	
+	
 	}
+
+	public void FindCorners()
+	{
+		Ray topLeft = Camera.main.ViewportPointToRay (new Vector3(0, 0, 0));
+		Ray topRight = Camera.main.ViewportPointToRay (new Vector3(1, 0, 0));
+		Ray botRight = Camera.main.ViewportPointToRay (new Vector3(1, 1, 0));
+		Ray botLeft = Camera.main.ViewportPointToRay (new Vector3(0, 1, 0));
+
+		Debug.Log(topLeft.GetPoint(5f));
+		Debug.Log(topRight.origin);
+		Debug.Log(botLeft.origin);
+		Debug.Log(botRight.origin);
+	}
+
+
+	
+
 }
