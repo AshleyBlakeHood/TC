@@ -20,7 +20,7 @@ public class AreaCreator : MonoBehaviour
 	void Start ()
 	{
 		gameManager = FindObjectOfType<GameManager> ();
-
+		areaFile = Resources.Load("Areas") as TextAsset;
 		areaResources = Resources.LoadAll<Sprite>("Sprites/World");
 		areas = new GameObject[areaResources.Length];
 

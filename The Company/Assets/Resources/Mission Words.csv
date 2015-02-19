@@ -1,8 +1,10 @@
-[KILL],Kill,Assassinate,Murder,Takeout,Top,Whack
-[PROTECT],Protect,Guard,Safeguard,Secure,Defend,Watch over
-[RAID],Raid,Assault,Invade,Sweep,Shootup,Storm
-[RESCUE],Rescue,Recover,Extract,Liberate,Reclaim,Aid
-[STOP],Stop,Hinder,Prevent,Cease,Terminate,Conclude
-[DEFUSE],Defuse,Deactivate,Defuse,Deactivate,Defuse,Deactivate
-[INFILTRATE],Infiltrate,Penetrate,Access,Sneak,Access,Work
-[DESTROY],Destroy,Sabotage,Raze,Destroy,Sabotage,Raze
+[KILL],Kill,Assassinate,Murder,Takeout,Top,Whack,Quench,Silence,Stamp out ,Discipline,Execute,Poison,Erase,Neutralize,Eradicate,Snuff,Waste,Maim,Butcher,,,,,
+[PROTECT],Protect,Guard,Safeguard,Secure,Defend,Watch over,Hold,Harbor,Shield,Occupy,Support,,,,,,,,,,,,,
+[RAID],Raid,Assault,Invade,Sweep,Shootup,Storm,Breach,Blitz,Rush,Assail,Charge,Plunder,Ravage,Crash,,,,,,,,,,
+[RESCUE],Rescue,Recover,Extract,Liberate,Reclaim,Aid,Relieve,Recoup,Ransom,Return,,,,,,,,,,,,,,
+[STOP],Stop,Hinder,Prevent,Cease,Terminate,Conclude,Block,Cutoff,Close,Barricade,Deter,,,,,,,,,,,,,
+[DEFUSE],Defuse,Deactivate,Defuse,Deactivate,Defuse,Deactivate,Pacify,Pacify,Quell,Quell,Subdue,,,,,,,,,,,,,
+[INFILTRATE],Infiltrate,Penetrate,Access,Sneak,Access,Work,Crack,Filter into,Invade,Infest,Occupy,,,,,,,,,,,,,
+[DESTROY],Destroy,Sabotage,Raze,Destroy,Sabotage,Raze,Conquer,Crush,Repress,Wreck,Smash,Raze,Liquidate,Shatter,Vaporize,Eviscerate,Extinguish,Overthrow,Topple,Demolish,Obliterate,Dismantle,Decimate,Trash
+,,,,,,,,,,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,,,,,,,,,,
